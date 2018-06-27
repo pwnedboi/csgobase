@@ -1,0 +1,7 @@
+class CInput
+{
+public:
+    
+    
+    
+};
