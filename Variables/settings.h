@@ -9,32 +9,27 @@ struct CSettings
 {
     bool menu = false;
     
-    struct CCombo
-    {
-        
-    }combo;
-    
-    struct CAimbot
+    struct
     {
         
     }aimbot;
     
-    struct CVisuals
+    struct
     {
         bool enabled = false;
     }visuals;
     
-    struct CMisc
+    struct
     {
         
     }misc;
     
-    struct CColors
+    struct
     {
         ImVec4 box;
     }colors;
     
-    struct CKeys
+    struct
     {
         
     }keys;

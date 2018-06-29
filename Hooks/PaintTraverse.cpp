@@ -20,7 +20,7 @@ void PaintTraverse_hk(void* thisptr, VPANEL thisPanel, bool forceRepaint, bool a
     {
         if(strstr(pPanel->GetName(thisPanel), "FocusOverlayPanel"))
         {
-            render->InitialiseFonts();
+            render->initialise_fonts();
             lastPanel = thisPanel;
         }
     }
@@ -30,10 +30,11 @@ void PaintTraverse_hk(void* thisptr, VPANEL thisPanel, bool forceRepaint, bool a
     {
         if(Global::local)
         {
-            visuals->drawPlayerESP();
+            
+            visuals->draw_player_esp();
+            
         }
         
-        
-        render->drawString(13, 21, Color::PastelPink(), menufont, "csgobase");
+        render->draw_watermark();
     }    
 }

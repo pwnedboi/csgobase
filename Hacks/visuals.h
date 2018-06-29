@@ -9,8 +9,8 @@ private:
     
     
 public:
-
-    void drawPlayerESP();
+    
+    void draw_player_esp();
     
 };
 

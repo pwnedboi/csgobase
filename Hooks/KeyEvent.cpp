@@ -13,13 +13,13 @@ enum
     RELEASED = 1,
 };
 
-int KeyEvent_hk(void* thisptr, int eventCode, int keycode, const char* curBinding)
+int KeyEvent_hk(void* thisptr, int event_code, int keycode, const char* cur_binding)
 {
     IMPL_HOOK("KeyEvent");
     
-    if(eventCode == PRESSED)
+    if(event_code == PRESSED)
     {
-        if(keycode == KEY_INSERT || keycode == KEY_LCONTROL)
+        if(keycode == KEY_INSERT || keycode == KEY_LALT || keycode == KEY_RALT)
         {
             set.menu = !set.menu;
             pEngine->ExecuteClientCmd(string("cl_mouseenable " + to_string(!set.menu)).c_str());
@@ -27,13 +27,13 @@ int KeyEvent_hk(void* thisptr, int eventCode, int keycode, const char* curBindin
     }
     
     
-    if(eventCode == RELEASED)
+    if(event_code == RELEASED)
     {
         
     }
     
     
-    return clientVMT->GetOriginalMethod<oKeyEvent>(20)(thisptr, eventCode, keycode, curBinding);
+    return clientVMT->GetOriginalMethod<oKeyEvent>(20)(thisptr, event_code, keycode, cur_binding);
 }
 
 

@@ -9,7 +9,8 @@
 
 CVisuals* visuals = new CVisuals();
 
-void CVisuals::drawPlayerESP()
+
+void CVisuals::draw_player_esp()
 {
     if(!set.visuals.enabled)
         return;
@@ -45,5 +46,11 @@ void CVisuals::drawPlayerESP()
         // Draw the players name and heath, ect : pwned / 100
         string to_draw = string(player->GetName()) + " / " + to_string(player->GetHealth());
         render->drawString(box.x + box.w / 2, box.y + box.h + 5, Color::White(), espfont, to_draw.c_str(), true);
+        
+        Vector head_out, head_pos = GetHitboxPosition(player, HITBOX_NECK);
+        if(WorldToScreen(head_pos, head_out))
+        {
+            render->drawBoxFilled(head_pos.x, head_pos.y, 2, 2, col);
+        }
     }
 }

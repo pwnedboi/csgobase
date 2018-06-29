@@ -428,7 +428,6 @@ enum Hitbox: int
     
     HITBOX_HEAD,
     HITBOX_NECK,
-    HITBOX_LOWER_NECK,
     HITBOX_PELVIS,
     HITBOX_BODY,
     HITBOX_THORAX,
@@ -447,14 +446,6 @@ enum Hitbox: int
     HITBOX_LEFT_UPPER_ARM,
     HITBOX_LEFT_FOREARM,
     HITBOX_MAX
-    
-    //        HITBOX_HEAD = 0,
-    //        HITBOX_NECK,
-    //        HITBOX_PELVIS,
-    //        HITBOX_SPINE,
-    //        HITBOX_LEGS,
-    //        HITBOX_ARMS
-    
 };
 
 enum HitGroups: int

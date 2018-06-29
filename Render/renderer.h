@@ -9,9 +9,9 @@ class RenderManager
 {
 public:
     
-    wstring  stringToWstring(string str);
-    HFONT    createFont(const char* szFont, int tall, int flags);
-    Vector2D getTextSize(const char* text, HFONT font);
+    wstring  string_to_wstring(string str);
+    HFONT    create_font(const char* szFont, int tall, int flags);
+    Vector2D get_text_size(const char* text, HFONT font);
     
     void drawBox(int x, int y, int w, int h, Color color);
     void drawBoxFilled(int x, int y, int w, int h, Color color);
@@ -25,7 +25,9 @@ public:
     void drawCircle(Vector2D position, float points, float radius, Color color);
     void drawFilledCircle(Vector2D center, float points, float radius, Color color);
     
-    void InitialiseFonts();
+    void initialise_fonts();
+    
+    void draw_watermark();
 };
 
 extern RenderManager* render;

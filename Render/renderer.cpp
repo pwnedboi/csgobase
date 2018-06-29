@@ -38,7 +38,7 @@ void RenderManager::drawLine(int x, int y, int xx, int yy, Color color)
 
 void RenderManager::drawString(int x, int y, Color color, HFONT font, const char *szString, bool bCenter)
 {
-    wstring wString = this->stringToWstring(szString);
+    wstring wString = this->string_to_wstring(szString);
     if(bCenter)
     {
         int wide, tall;
@@ -181,14 +181,14 @@ void RenderManager::drawFilledCircle(Vector2D center, float points, float radius
 
 //============================================ Misc =============================================\\
 
-wstring RenderManager::stringToWstring(string str)
+wstring RenderManager::string_to_wstring(string str)
 {
     wstring_convert<codecvt_utf8<wchar_t>, wchar_t> converter;
     try
     {
         return converter.from_bytes(str);
     }
-    catch(range_error)
+    catch(range_error& e)
     {
         wostringstream s;
         s << str.c_str();
@@ -196,30 +196,35 @@ wstring RenderManager::stringToWstring(string str)
     }
 }
 
-Vector2D RenderManager::getTextSize(const char* text, HFONT font)
+Vector2D RenderManager::get_text_size(const char* text, HFONT font)
 {
-    wstring wc = stringToWstring(text);
+    wstring wc = string_to_wstring(text);
     int w, h;
     pSurface->GetTextSize(font, wc.c_str(), w, h);
     
     return Vector2D(w, h);
 }
 
+void RenderManager::draw_watermark()
+{
+    this->drawString(10, 20, Color::PastelPink(), espfont, "csgobase");
+}
+
 //============================================ Fonts =============================================\\
 
 HFONT espfont, menufont;
 
-HFONT RenderManager::createFont(const char *szFont, int tall, int flags)
+HFONT RenderManager::create_font(const char* szFont, int tall, int flags)
 {
     HFONT font = pSurface->CreateFont();
     pSurface->SetFontGlyphSet(font, szFont, tall, 150, 0, 0, flags);
     return font;
 }
 
-void RenderManager::InitialiseFonts()
+void RenderManager::initialise_fonts()
 {
-    espfont     = this->createFont("Tahoma", 11, FONTFLAG_OUTLINE);
-    menufont    = this->createFont("Tahoma", 11, FONTFLAG_DROPSHADOW);
+    espfont     = this->create_font("Verdana Bold", 13, FONTFLAG_DROPSHADOW);
+    menufont    = this->create_font("Tahoma", 11, FONTFLAG_DROPSHADOW);
     
     print("Fonts initlaised", Color::Orange());
 }
