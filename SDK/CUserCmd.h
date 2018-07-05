@@ -5,7 +5,7 @@ struct CUserCmd
     virtual     ~CUserCmd() {};
     int         command_number;
     int         tick_count;
-    Vector      viewangles;
+    QAngle      viewangles;
     Vector      aimdirection;
     float       forwardmove;
     float       sidemove;
