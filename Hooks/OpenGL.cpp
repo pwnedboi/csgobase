@@ -314,7 +314,7 @@ void SwapWindow(SDL_Window* window)
         ImGui_ImplSdlGL2_Init(window);
         
         // Initialise the menu style
-        Menu::setupStyle();
+        menu->setup_style();
     }
     
     SDL_GL_MakeCurrent(window, context);
@@ -324,7 +324,7 @@ void SwapWindow(SDL_Window* window)
     
     if(set.menu)
     {
-        Menu::drawMenu();
+        menu->render();
     }
     
     // Draw the mouse

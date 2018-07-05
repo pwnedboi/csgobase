@@ -155,7 +155,7 @@
 				B60C88D420030DE600D0615B /* Settings */,
 				B60C88D320030DE000D0615B /* Utilities */,
 				B60C88D520030DEC00D0615B /* Render */,
-				B60C88D220030DD900D0615B /* Hacks */,
+				B60C88D220030DD900D0615B /* Features */,
 				B60C88D620030DF800D0615B /* Hooks */,
 				B60C88D720030E0200D0615B /* Interfaces */,
 				B60C88D020030DCC00D0615B /* Main */,
@@ -197,7 +197,7 @@
 			name = SDK;
 			sourceTree = "<group>";
 		};
-		B60C88D220030DD900D0615B /* Hacks */ = {
+		B60C88D220030DD900D0615B /* Features */ = {
 			isa = PBXGroup;
 			children = (
 				B6D5D02020AA96FC00AB99B1 /* Aim */,
@@ -205,7 +205,7 @@
 				B6D5D02120AA970100AB99B1 /* Movement */,
 				B6D5D01D20AA96E700AB99B1 /* Visuals */,
 			);
-			name = Hacks;
+			name = Features;
 			sourceTree = "<group>";
 		};
 		B60C88D320030DE000D0615B /* Utilities */ = {

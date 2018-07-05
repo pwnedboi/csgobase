@@ -7,4 +7,4 @@
 #include "main.h"
 #include "misc.h"
 
-CMisc* misc = new CMisc();
+C_Misc* misc = new C_Misc();

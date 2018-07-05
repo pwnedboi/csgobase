@@ -3,7 +3,7 @@
  */
 #pragma once
 
-class CVisuals
+class C_Visuals
 {
 private:
     
@@ -14,4 +14,4 @@ public:
     
 };
 
-extern CVisuals* visuals;
+extern C_Visuals* visuals;

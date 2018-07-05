@@ -3,7 +3,7 @@
  */
 #pragma once
 
-class CMovement
+class C_Movement
 {
 private:
     
@@ -15,4 +15,4 @@ public:
     
 };
 
-extern CMovement* move;
+extern C_Movement* move;

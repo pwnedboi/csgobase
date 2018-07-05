@@ -7,4 +7,4 @@
 #include "main.h"
 #include "movement.h"
 
-CMovement* move = new CMovement();
+C_Movement* move = new C_Movement();

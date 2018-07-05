@@ -6,17 +6,15 @@
 #include "menu.h"
 #include "imgui.h"
 
-enum // tabs
-{
-    AIMBOT,
-    VISUALS,
-    MISC,
-    COLOUR,
-};
+C_Menu* menu;
 
-void Menu::drawMenu()
+/*
+ *  render
+ *  Renders the menu
+ */
+void C_Menu::render()
 {
-    int flags = ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar;
+    const int flags = ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar;
  
     static int tab = AIMBOT;
     
@@ -28,7 +26,11 @@ void Menu::drawMenu()
     ImGui::End();
 }
 
-void Menu::setupStyle()
+/*
+ *  setup_style
+ *  Setups the ImGui style
+ */
+void C_Menu::setup_style()
 {
     ImGuiStyle& style = ImGui::GetStyle();
     

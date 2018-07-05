@@ -7,10 +7,13 @@
 #include "main.h"
 #include "visuals.h"
 
-CVisuals* visuals = new CVisuals();
+C_Visuals* visuals = new C_Visuals();
 
-
-void CVisuals::draw_player_esp()
+/*
+ *  draw_player_esp
+ *  Draws esp and visuals for each player
+ */
+void C_Visuals::draw_player_esp()
 {
     if(!set.visuals.enabled)
         return;
@@ -45,12 +48,10 @@ void CVisuals::draw_player_esp()
         
         // Draw the players name and heath, ect : pwned / 100
         string to_draw = string(player->GetName()) + " / " + to_string(player->GetHealth());
-        render->drawString(box.x + box.w / 2, box.y + box.h + 5, Color::White(), espfont, to_draw.c_str(), true);
+        render->draw_string(box.x + box.w / 2, box.y + box.h + 5, Color::White(), espfont, to_draw.c_str(), true);
         
         Vector head_out, head_pos = GetHitboxPosition(player, HITBOX_NECK);
         if(WorldToScreen(head_pos, head_out))
-        {
-            render->drawBoxFilled(head_pos.x, head_pos.y, 2, 2, col);
-        }
+            render->draw_box_filled(head_pos.x, head_pos.y, 2, 2, col);
     }
 }

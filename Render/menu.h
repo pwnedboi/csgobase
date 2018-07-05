@@ -2,10 +2,23 @@
 
 #include "main.h"
 
-namespace Menu
+class C_Menu
 {
-    void drawMenu();
-    void setupStyle();
+private:
     
-    extern int alpha;
-}
+    enum
+    {
+        AIMBOT,
+        VISUALS,
+        MISC,
+        COLOUR,
+    };
+    
+public:
+    
+    void render();
+    void setup_style();
+    
+};
+
+extern C_Menu* menu;

@@ -6,65 +6,49 @@
 #include "main.h"
 #include "renderer.h"
 
-RenderManager* render = new RenderManager();
+C_Renderer* render = new C_Renderer();
 
-//============================================ Drawings =============================================\\
+/****************************** Drawings ******************************/
 
-void RenderManager::drawBox(int x, int y, int w, int h, Color color)
+/*
+ *  draw_box
+ *  Draws a hollow box
+ */
+void C_Renderer::draw_box(int x, int y, int w, int h, Color color)
 {
     pSurface->DrawSetColor(color);
     pSurface->DrawOutlinedRect(x, y, x + w, y + h);
 }
 
-void RenderManager::drawBoxFilled(int x, int y, int w, int h, Color color)
+/*
+ *  draw_box_filled
+ *  Draws a filled box
+ */
+void C_Renderer::draw_box_filled(int x, int y, int w, int h, Color color)
 {
     pSurface->DrawSetColor(color);
     pSurface->DrawFilledRect(x, y, x + w, y + h);
 }
 
-void RenderManager::drawBoxOutline(int x, int y, int w, int h, Color color)
+/*
+ *  draw_box_outline
+ *  Draws an outline around a box
+ */
+void C_Renderer::draw_box_outline(int x, int y, int w, int h, Color color)
 {
     int aplha = color.a();
-    this->drawBox(x, y, w, h, color);   // The fill colour
-    this->drawBox(x - 1, y - 1, w + 2, h + 2, Color(0, 0, 0, aplha)); // The border, black
-    this->drawBox(x + 1, y + 1, w - 2, h - 2, Color(0, 0, 0, aplha));
+    this->draw_box(x, y, w, h, color);   // The fill colour
+    this->draw_box(x - 1, y - 1, w + 2, h + 2, Color(0, 0, 0, aplha)); // The border, black
+    this->draw_box(x + 1, y + 1, w - 2, h - 2, Color(0, 0, 0, aplha));
 }
 
-void RenderManager::drawLine(int x, int y, int xx, int yy, Color color)
+/*
+ *  draw_outlined_box
+ *  Draws a box with an outline
+ */
+void C_Renderer::draw_outlined_box(int x, int y, int w, int h, int thickness, Color color, Color outlined)
 {
-    pSurface->DrawSetColor(color);
-    pSurface->DrawLine(x, y, xx, yy);
-}
-
-void RenderManager::drawString(int x, int y, Color color, HFONT font, const char *szString, bool bCenter)
-{
-    wstring wString = this->string_to_wstring(szString);
-    if(bCenter)
-    {
-        int wide, tall;
-        pSurface->GetTextSize(font, wString.c_str(), wide, tall);
-        x -= wide / 2;
-        y -= tall / 2;
-    }
-    pSurface->DrawSetTextPos(x, y);
-    pSurface->DrawSetTextFont(font);
-    pSurface->DrawSetTextColor(color);
-    pSurface->DrawPrintText(wString.c_str(), (int)wcslen(wString.c_str()));
-}
-
-void RenderManager::drawTexturedPolygon(int n, Vertex_t* vertice, Color col)
-{
-    static int texture_id = pSurface->CreateNewTextureID(true);
-    static unsigned char buf[4] = { 255, 255, 255, 255 };
-    pSurface->DrawSetTextureRGBA(texture_id, buf, 1, 1);
-    pSurface->DrawSetColor(col);
-    pSurface->DrawSetTexture(texture_id);
-    pSurface->DrawTexturedPolygon(n, vertice);
-}
-
-void RenderManager::drawOutlinedBox(int x, int y, int w, int h, int thickness, Color color, Color outlined)
-{
-    this->drawBoxFilled(x, y, w, h, color);
+    this->draw_box_filled(x, y, w, h, color);
     
     x -= thickness;
     y -= thickness;
@@ -72,13 +56,39 @@ void RenderManager::drawOutlinedBox(int x, int y, int w, int h, int thickness, C
     h += thickness;
     color = outlined;
     
-    this->drawBoxFilled(x, y, w, thickness, color);
-    this->drawBoxFilled(x, y, thickness, h, color);
-    this->drawBoxFilled(x + w, y, thickness, h, color);
-    this->drawBoxFilled(x, y + h, w + thickness, thickness, color);
+    this->draw_box_filled(x, y, w, thickness, color);
+    this->draw_box_filled(x, y, thickness, h, color);
+    this->draw_box_filled(x + w, y, thickness, h, color);
+    this->draw_box_filled(x, y + h, w + thickness, thickness, color);
 }
 
-void RenderManager::drawBox3D(Vector vecOrigin, Vector min, Vector max, Color color)
+/*
+ *  draw_gradient
+ *  Draws a box that gradients from one colour to another
+ */
+void C_Renderer::draw_gradient(int x, int y, int w, int h, Color col1, Color col2)
+{
+    this->draw_box_filled(x, y, w, h, col1);
+    
+    Byte first  = col2.r();
+    Byte second = col2.g();
+    Byte third  = col2.b();
+    
+    for (int i = 0; i < h; i++)
+    {
+        float fi = i, fh = h;
+        float a = fi / fh;
+        int ia = a * 255;
+        
+        this->draw_box_filled(x, y + i, w, 1, Color(first, second, third, ia));
+    }
+}
+
+/*
+ *  draw_3d_box
+ *  Draws a 3d box around a point
+ */
+void C_Renderer::draw_3d_box(Vector vecOrigin, Vector min, Vector max, Color color)
 {
     min += vecOrigin;
     max += vecOrigin;
@@ -108,30 +118,59 @@ void RenderManager::drawBox3D(Vector vecOrigin, Vector min, Vector max, Color co
         if (!WorldToScreen(points[it[0]], p1) || !WorldToScreen(points[it[1]], p2))
             return;
         
-        this->drawLine(p1.x, p1.y, p2.x, p2.y, color);
+        this->draw_line(p1.x, p1.y, p2.x, p2.y, color);
     }
 }
 
-void RenderManager::drawGradient(int x, int y, int w, int h, Color col1, Color col2)
+/*
+ *  draw_line
+ *  Draws a line from one point to another
+ */
+void C_Renderer::draw_line(int x, int y, int xx, int yy, Color color)
 {
-    this->drawBoxFilled(x, y, w, h, col1);
-    
-    Byte first  = col2.r();
-    Byte second = col2.g();
-    Byte third  = col2.b();
-    
-    for (int i = 0; i < h; i++)
-    {
-        float fi = i, fh = h;
-        float a = fi / fh;
-        int ia = a * 255;
-        
-        this->drawBoxFilled(x, y + i, w, 1, Color(first, second, third, ia));
-    }
-    
+    pSurface->DrawSetColor(color);
+    pSurface->DrawLine(x, y, xx, yy);
 }
 
-void RenderManager::drawCircle(Vector2D position, float points, float radius, Color color)
+/*
+ *  draw_string
+ *  Draws a string
+ */
+void C_Renderer::draw_string(int x, int y, Color color, HFONT font, const char *szString, bool bCenter)
+{
+    wstring wString = this->string_to_wstring(szString);
+    if(bCenter)
+    {
+        int wide, tall;
+        pSurface->GetTextSize(font, wString.c_str(), wide, tall);
+        x -= wide / 2;
+        y -= tall / 2;
+    }
+    pSurface->DrawSetTextPos(x, y);
+    pSurface->DrawSetTextFont(font);
+    pSurface->DrawSetTextColor(color);
+    pSurface->DrawPrintText(wString.c_str(), (int)wcslen(wString.c_str()));
+}
+
+/*
+ *  draw_textured_polygon
+ *  Draws a shape with given verticies
+ */
+void C_Renderer::draw_textured_polygon(int n, Vertex_t* vertice, Color col)
+{
+    static int texture_id = pSurface->CreateNewTextureID(true);
+    static unsigned char buf[4] = { 255, 255, 255, 255 };
+    pSurface->DrawSetTextureRGBA(texture_id, buf, 1, 1);
+    pSurface->DrawSetColor(col);
+    pSurface->DrawSetTexture(texture_id);
+    pSurface->DrawTexturedPolygon(n, vertice);
+}
+
+/*
+ *  draw_circle
+ *  Draws a hollow circle
+ */
+void C_Renderer::draw_circle(Vector2D position, float points, float radius, Color color)
 {
     float step = (float)M_PI * 2.0f / points;
     
@@ -139,11 +178,15 @@ void RenderManager::drawCircle(Vector2D position, float points, float radius, Co
     {
         Vector2D start(radius * cosf(a) + position.x, radius * sinf(a) + position.y);
         Vector2D end(radius * cosf(a + step) + position.x, radius * sinf(a + step) + position.y);
-        this->drawLine(start.x, start.y, end.x, end.y, color);
+        this->draw_line(start.x, start.y, end.x, end.y, color);
     }
 }
 
-void RenderManager::drawFilledCircle(Vector2D center, float points, float radius, Color color)
+/*
+ *  draw_filled_circle
+ *  Draws a filled circle
+ */
+void C_Renderer::draw_filled_circle(Vector2D center, float points, float radius, Color color)
 {
     static bool once = true;
     
@@ -175,13 +218,17 @@ void RenderManager::drawFilledCircle(Vector2D center, float points, float radius
         vertices.push_back(Vertex_t(Vector2D(x, y)));
     }
     
-    this->drawTexturedPolygon(points, vertices.data(), color);
+    this->draw_textured_polygon(points, vertices.data(), color);
 }
 
 
-//============================================ Misc =============================================\\
+/****************************** Misc / util ******************************/
 
-wstring RenderManager::string_to_wstring(string str)
+/*
+ *  string_to_wstring
+ *  Converts a string to a wide string
+ */
+wstring C_Renderer::string_to_wstring(string str)
 {
     wstring_convert<codecvt_utf8<wchar_t>, wchar_t> converter;
     try
@@ -196,7 +243,11 @@ wstring RenderManager::string_to_wstring(string str)
     }
 }
 
-Vector2D RenderManager::get_text_size(const char* text, HFONT font)
+/*
+ *  get_text_size
+ *  Gets the size of string
+ */
+Vector2D C_Renderer::get_text_size(const char* text, HFONT font)
 {
     wstring wc = string_to_wstring(text);
     int w, h;
@@ -205,23 +256,35 @@ Vector2D RenderManager::get_text_size(const char* text, HFONT font)
     return Vector2D(w, h);
 }
 
-void RenderManager::draw_watermark()
+/*
+ *  draw_watermark
+ *  Draws the watermark in the top left corner of the screen
+ */
+void C_Renderer::draw_watermark()
 {
-    this->drawString(10, 20, Color::PastelPink(), espfont, "csgobase");
+    this->draw_string(10, 20, Color::PastelPink(), espfont, "csgobase");
 }
 
-//============================================ Fonts =============================================\\
+/****************************** Fonts ******************************/
 
 HFONT espfont, menufont;
 
-HFONT RenderManager::create_font(const char* szFont, int tall, int flags)
+/*
+ *  create_font
+ *  Creates a hfont
+ */
+HFONT C_Renderer::create_font(const char* szFont, int tall, int flags)
 {
     HFONT font = pSurface->CreateFont();
     pSurface->SetFontGlyphSet(font, szFont, tall, 150, 0, 0, flags);
     return font;
 }
 
-void RenderManager::initialise_fonts()
+/*
+ *  initialise_fonts
+ *  Creates all fonts
+ */
+void C_Renderer::initialise_fonts()
 {
     espfont     = this->create_font("Verdana Bold", 13, FONTFLAG_DROPSHADOW);
     menufont    = this->create_font("Tahoma", 11, FONTFLAG_DROPSHADOW);

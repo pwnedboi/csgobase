@@ -1,6 +1,6 @@
 /*      Interfaces.cpp
  *
- *  - For defining interfaces
+ *  Defines interfaces
  *
  */
 
