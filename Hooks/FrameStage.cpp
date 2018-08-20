@@ -25,5 +25,5 @@ void FrameStage_hk(void* thisptr, ClientFrameStage_t curStage)
     
     
     
-    clientVMT->GetOriginalMethod<oFrameStage>(36)(thisptr, curStage);
+    clientVMT->GetOriginalMethod<oFrameStage>(37)(thisptr, curStage);
 }

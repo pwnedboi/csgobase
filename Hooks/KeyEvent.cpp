@@ -22,7 +22,7 @@ int KeyEvent_hk(void* thisptr, int event_code, int keycode, const char* cur_bind
         if(keycode == KEY_INSERT || keycode == KEY_LALT || keycode == KEY_RALT)
         {
             set.menu = !set.menu;
-            pEngine->ExecuteClientCmd(string("cl_mouseenable " + to_string(!set.menu)).c_str());
+            pInputSystem->EnableInput(!set.menu);
         }
     }
     
@@ -33,7 +33,7 @@ int KeyEvent_hk(void* thisptr, int event_code, int keycode, const char* cur_bind
     }
     
     
-    return clientVMT->GetOriginalMethod<oKeyEvent>(20)(thisptr, event_code, keycode, cur_binding);
+    return clientVMT->GetOriginalMethod<oKeyEvent>(21)(thisptr, event_code, keycode, cur_binding);
 }
 
 

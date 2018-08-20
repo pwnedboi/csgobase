@@ -82,8 +82,8 @@ void hook_functions()
     paintVMT->HookVM((void*)PaintTraverse_hk, 42);
     paintVMT->ApplyVMT();
 
-    clientVMT->HookVM((void*)KeyEvent_hk, 20);
-    clientVMT->HookVM((void*)FrameStage_hk, 36);
+    clientVMT->HookVM((void*)KeyEvent_hk, 21);
+    clientVMT->HookVM((void*)FrameStage_hk, 37);
     clientVMT->ApplyVMT();
     
     OpenGL_hk();
