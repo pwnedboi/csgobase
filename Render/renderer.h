@@ -3,34 +3,50 @@
  */
 #pragma once
 
-extern HFONT espfont, menufont;
+#include "imgui.h"
+
+namespace Fonts
+{
+    extern ImFont* big;
+    extern ImFont* small;
+}
 
 class C_Renderer
 {
 private:
     
-    wstring  string_to_wstring(string str);
-    HFONT    create_font(const char* szFont, int tall, int flags);
+    ImDrawList* draw;
+    
+private:
+    
+    ImFont* create_font(const char* font_path, float font_size);
     
 public:
     
-    Vector2D get_text_size(const char* text, HFONT font);
+    void start();
+    void finish();
     
-    void draw_box(int x, int y, int w, int h, Color color);
-    void draw_box_filled(int x, int y, int w, int h, Color color);
-    void draw_box_outline(int x, int y, int w, int h, Color color);
-    void draw_outlined_box(int x, int y, int w, int h, int thickness, Color color, Color outlined);
-    void draw_gradient(int x, int y, int w, int h, Color col1, Color col2);
-    void draw_3d_box(Vector vecOrigin, Vector min, Vector max, Color color);
-    void draw_line(int x, int y, int xx, int yy, Color color);
-    void draw_string(int x, int y, Color color, HFONT font, const char* szString, bool bCenter = false);
-    void draw_textured_polygon(int n, Vertex_t* vertice, Color col);
-    void draw_circle(Vector2D position, float points, float radius, Color color);
-    void draw_filled_circle(Vector2D center, float points, float radius, Color color);
     
-    void initialise_fonts();
+    void draw_box(int x, int y, int w, int h, ImColor col);
+    void draw_box_filled(int x, int y, int w, int h, ImColor col);
+    void draw_box_outlined(int x, int y, int w, int h, int thickness, ImColor col, ImColor border);
+    void draw_box_gradient(int x, int y, int w, int h, ImColor col1, ImColor col2);
+    void draw_box_3d(Vector origin, Vector min, Vector max, ImColor col);
     
-    void draw_watermark();
+    void draw_line(int x, int y, int xx, int yy, ImColor col);
+    void draw_string(int x, int y, const char* str, ImFont* font, ImColor col, bool centered = false);
+    void draw_polygon(ImVec2* verts, ImColor col);
+    void draw_circle(ImVec2 center, float radius, ImColor col);
+    void draw_circle_filled(ImVec2 center, float radius, ImColor col);
+    
+    
+    
+    ImVec2 get_text_size(const char* str);
+    
+    void init_fonts();
+    
 };
 
 extern C_Renderer* render;
+
+

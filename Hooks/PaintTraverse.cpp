@@ -19,8 +19,7 @@ void PaintTraverse_hk(void* thisptr, VPANEL thisPanel, bool forceRepaint, bool a
     if(!lastPanel)
     {
         if(strstr(pPanel->GetName(thisPanel), "FocusOverlayPanel"))
-        {
-            render->initialise_fonts();
+        {            
             lastPanel = thisPanel;
         }
     }
@@ -28,13 +27,5 @@ void PaintTraverse_hk(void* thisptr, VPANEL thisPanel, bool forceRepaint, bool a
     
     if(thisPanel == lastPanel)
     {
-        if(Global::local)
-        {
-            
-            visuals->draw_player_esp();
-            
-        }
-        
-        render->draw_watermark();
     }    
 }

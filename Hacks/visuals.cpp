@@ -10,6 +10,20 @@
 C_Visuals* visuals = new C_Visuals();
 
 /*
+ *  draw_esp_box
+ *  Draws an esp box
+ */
+void C_Visuals::draw_esp_box(int x, int y, int w, int h, ImColor col)
+{
+    /*
+     *  The first 2 boxes are the border for the esp
+     */
+    render->draw_box(x - 1, y - 1, w + 2, h + 2, IM_COL32_BLACK);
+    render->draw_box(x + 1, y + 1, w - 2, h - 2, IM_COL32_BLACK);
+    render->draw_box(x, y, w, h, col);
+}
+
+/*
  *  draw_player_esp
  *  Draws esp and visuals for each player
  */
@@ -35,10 +49,10 @@ void C_Visuals::draw_player_esp()
             continue;
         
         int  team = player->GetTeam();
-        bool visible = IsPlayerVisible(player);
+        bool visible = is_player_visible(player);
         
         // Just an example of what to do
-        Color col = ImVecToColor(set.colors.box);
+        ImColor col(set.colors.box);
         
                 
         box_t box;
@@ -48,10 +62,8 @@ void C_Visuals::draw_player_esp()
         
         // Draw the players name and heath, ect : pwned / 100
         string to_draw = string(player->GetName()) + " / " + to_string(player->GetHealth());
-        render->draw_string(box.x + box.w / 2, box.y + box.h + 5, Color::White(), espfont, to_draw.c_str(), true);
+        render->draw_string(box.x + box.w / 2, box.y + box.h + 5, to_draw.c_str(), Fonts::small, IM_COL32_WHITE, true);
         
-        Vector head_out, head_pos = GetHitboxPosition(player, HITBOX_NECK);
-        if(WorldToScreen(head_pos, head_out))
-            render->draw_box_filled(head_pos.x, head_pos.y, 2, 2, col);
+        this->draw_esp_box(box.x, box.y, box.w, box.h, col);
     }
 }

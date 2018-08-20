@@ -175,6 +175,11 @@ public:
     vec_t    Dot(const Vector& vOther) const;
     vec_t   Dots(const float* fOther) const;
     
+    auto dot(float* other) const -> float
+    {
+        return x * other[0] + y * other[1] + z * other[2];
+    }
+    
     // assignment
     Vector& operator=(const Vector &vOther);
     

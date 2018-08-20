@@ -5,7 +5,7 @@
 
 #include "imgui.h" // ImVec4
 
-struct CSettings
+struct C_Settings
 {
     bool menu = false;
     
@@ -35,5 +35,3 @@ struct CSettings
     }keys;
     
 };
-
-extern CSettings set;

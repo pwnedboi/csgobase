@@ -355,7 +355,11 @@ public:
     {
         return *(bool*)((uintptr_t)this + 0x121);
     }
-    
+  
+    int get_hitbox_set()
+    {
+        return (int)((uintptr_t)this + offsets.DT_BasePlayer.m_nHitboxSet);
+    } 
 };
 
     
@@ -671,25 +675,25 @@ public:
     WeaponInfo_t* GetWeaponInfo()
     {
         typedef WeaponInfo_t* (* oGetWeaponInfo)(void*);
-        return getvfunc<oGetWeaponInfo>(this, 515)(this);
+        return getvfunc<oGetWeaponInfo>(this, 513)(this);
     }
     
     float GetInaccuracy()
     {
         typedef float (*oGetInaccuracy)(void*);
-        return getvfunc<oGetInaccuracy>(this, 538)(this);
+        return getvfunc<oGetInaccuracy>(this, 536)(this);
     }
     
     float GetSpread()
     {
         typedef float (*oGetSpread)(void*);
-        return getvfunc<oGetSpread>(this, 507)(this);
+        return getvfunc<oGetSpread>(this, 505)(this);
     }
     
     void UpdateAccuracyPenalty()
     {
         typedef void (*oUpdateAccuracyPenalty)(void*);
-        return getvfunc<oUpdateAccuracyPenalty>(this, 539)(this);
+        return getvfunc<oUpdateAccuracyPenalty>(this, 537)(this);
     }
     
 };

@@ -1,3 +1,6 @@
+/*
+ *  hooker.h
+ */
 #pragma once
 
 void init_interfaces();
@@ -5,8 +8,8 @@ void init_hooks();
 void hook_functions();
 void init_settings();
 
-#define CLIENTMODE_SIG  "\xE8\x00\x00\x00\x00\x48\xC7\xC3\x00\x00\x00\x00\x4C\x8D\x3D\x00\x00\x00\x00\x0F\x1F\x44\x00"
-#define CLIENTMODE_MASK "x????xxx????xxx????xxxx"
+#define CLIENTMODE_SIG  "\x48\x8B\xB7\x00\x00\x00\x00\x48\x8D\x3D\x00\x00\x00\x00\x5D\xE9"
+#define CLIENTMODE_MASK "xxx????xxx????xx"
 
 #define GLOBALS_SIG     "\x48\x8D\x05\x00\x00\x00\x00\x48\x8B\x00\xF3\x0F\x10\x00\x00\xF3\x0F\x11\x83\x00\x00\x00\x00"
 #define GLOBALS_MASK    "xxx????xxxxxx??xxxx????"

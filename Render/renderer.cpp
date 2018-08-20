@@ -1,12 +1,49 @@
-/*      Renderer.cpp
+/*      renderer.cpp
  *
  *
  *
  */
+
 #include "main.h"
 #include "renderer.h"
 
 C_Renderer* render = new C_Renderer();
+
+/****************************** Window ******************************/
+
+/*
+ *  start
+ *  Creates the window that everything is rendered to
+ */
+void C_Renderer::start()
+{
+    auto& style = ImGui::GetStyle();
+    style.WindowBorderSize = 0.f;
+    
+    ImGui::SetNextWindowPos({0, 0});
+    ImGui::SetNextWindowSize({1280, 720});
+    ImGui::SetNextWindowBgAlpha(0.f);
+    
+    bool opened = true;
+    int flags = ImGuiWindowFlags_NoTitleBar      | ImGuiWindowFlags_NoResize |
+    ImGuiWindowFlags_NoScrollbar     | ImGuiWindowFlags_NoInputs |
+    ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing |
+    ImGuiWindowFlags_NoBringToFrontOnFocus;
+    
+    
+    ImGui::Begin("drawings window", &opened, flags);
+    
+    this->draw = ImGui::GetWindowDrawList();
+}
+
+/*
+ *  finish
+ *
+ */
+void C_Renderer::finish()
+{
+    ImGui::End();
+}
 
 /****************************** Drawings ******************************/
 
@@ -14,84 +51,47 @@ C_Renderer* render = new C_Renderer();
  *  draw_box
  *  Draws a hollow box
  */
-void C_Renderer::draw_box(int x, int y, int w, int h, Color color)
+void C_Renderer::draw_box(int x, int y, int w, int h, ImColor col)
 {
-    pSurface->DrawSetColor(color);
-    pSurface->DrawOutlinedRect(x, y, x + w, y + h);
+    draw->AddRect({x, y}, {x + w, y + h}, col);
 }
 
 /*
  *  draw_box_filled
  *  Draws a filled box
  */
-void C_Renderer::draw_box_filled(int x, int y, int w, int h, Color color)
+void C_Renderer::draw_box_filled(int x, int y, int w, int h, ImColor col)
 {
-    pSurface->DrawSetColor(color);
-    pSurface->DrawFilledRect(x, y, x + w, y + h);
+    draw->AddRectFilled({x, y}, {x + w, y + h}, col);
 }
 
 /*
- *  draw_box_outline
- *  Draws an outline around a box
- */
-void C_Renderer::draw_box_outline(int x, int y, int w, int h, Color color)
-{
-    int aplha = color.a();
-    this->draw_box(x, y, w, h, color);   // The fill colour
-    this->draw_box(x - 1, y - 1, w + 2, h + 2, Color(0, 0, 0, aplha)); // The border, black
-    this->draw_box(x + 1, y + 1, w - 2, h - 2, Color(0, 0, 0, aplha));
-}
-
-/*
- *  draw_outlined_box
+ *  draw_box_outlined
  *  Draws a box with an outline
  */
-void C_Renderer::draw_outlined_box(int x, int y, int w, int h, int thickness, Color color, Color outlined)
+void C_Renderer::draw_box_outlined(int x, int y, int w, int h, int thickness, ImColor col, ImColor border)
 {
-    this->draw_box_filled(x, y, w, h, color);
-    
-    x -= thickness;
-    y -= thickness;
-    w += thickness;
-    h += thickness;
-    color = outlined;
-    
-    this->draw_box_filled(x, y, w, thickness, color);
-    this->draw_box_filled(x, y, thickness, h, color);
-    this->draw_box_filled(x + w, y, thickness, h, color);
-    this->draw_box_filled(x, y + h, w + thickness, thickness, color);
+    draw->AddRectFilled({x - thickness, y - thickness}, {x + w + thickness, y + h + thickness}, border);
+    draw->AddRectFilled({x, y}, {x + w, y + h}, col);
 }
 
 /*
- *  draw_gradient
- *  Draws a box that gradients from one colour to another
+ *  draw_box_gradient
+ *  Draws a box that gradients from one coloue to another, top to bottom
  */
-void C_Renderer::draw_gradient(int x, int y, int w, int h, Color col1, Color col2)
+void C_Renderer::draw_box_gradient(int x, int y, int w, int h, ImColor col1, ImColor col2)
 {
-    this->draw_box_filled(x, y, w, h, col1);
-    
-    Byte first  = col2.r();
-    Byte second = col2.g();
-    Byte third  = col2.b();
-    
-    for (int i = 0; i < h; i++)
-    {
-        float fi = i, fh = h;
-        float a = fi / fh;
-        int ia = a * 255;
-        
-        this->draw_box_filled(x, y + i, w, 1, Color(first, second, third, ia));
-    }
+    draw->AddRectFilledMultiColor({x, y}, {x + w, y + h}, col1, col1, col2, col2);
 }
 
 /*
- *  draw_3d_box
+ *  draw_box_3d
  *  Draws a 3d box around a point
  */
-void C_Renderer::draw_3d_box(Vector vecOrigin, Vector min, Vector max, Color color)
+void C_Renderer::draw_box_3d(Vector origin, Vector min, Vector max, ImColor col)
 {
-    min += vecOrigin;
-    max += vecOrigin;
+    min += origin;
+    max += origin;
     
     Vector points[] =
     {
@@ -115,180 +115,107 @@ void C_Renderer::draw_3d_box(Vector vecOrigin, Vector min, Vector max, Color col
     for (auto it : edges)
     {
         Vector p1, p2;
-        if (!WorldToScreen(points[it[0]], p1) || !WorldToScreen(points[it[1]], p2))
+        if (!world_to_screen(points[it[0]], p1) || !world_to_screen(points[it[1]], p2))
             return;
         
-        this->draw_line(p1.x, p1.y, p2.x, p2.y, color);
+        this->draw_line(p1.x, p1.y, p2.x, p2.y, col);
     }
 }
 
 /*
  *  draw_line
- *  Draws a line from one point to another
+ *  Draws a line between 2 points
  */
-void C_Renderer::draw_line(int x, int y, int xx, int yy, Color color)
+void C_Renderer::draw_line(int x, int y, int xx, int yy, ImColor col)
 {
-    pSurface->DrawSetColor(color);
-    pSurface->DrawLine(x, y, xx, yy);
+    draw->AddLine({x, y}, {xx, yy}, col);
 }
 
 /*
  *  draw_string
  *  Draws a string
  */
-void C_Renderer::draw_string(int x, int y, Color color, HFONT font, const char *szString, bool bCenter)
+void C_Renderer::draw_string(int x, int y, const char* str, ImFont* font, ImColor col, bool centered)
 {
-    wstring wString = this->string_to_wstring(szString);
-    if(bCenter)
+    if(centered)
     {
-        int wide, tall;
-        pSurface->GetTextSize(font, wString.c_str(), wide, tall);
-        x -= wide / 2;
-        y -= tall / 2;
+        auto text_size = get_text_size(str);
+        x -= (text_size.x / 2);
+        y -= (text_size.y / 2);
     }
-    pSurface->DrawSetTextPos(x, y);
-    pSurface->DrawSetTextFont(font);
-    pSurface->DrawSetTextColor(color);
-    pSurface->DrawPrintText(wString.c_str(), (int)wcslen(wString.c_str()));
+    
+    draw->AddText(font, font->FontSize, {x, y}, col, str);
 }
 
 /*
- *  draw_textured_polygon
+ *  draw_polygon
  *  Draws a shape with given verticies
  */
-void C_Renderer::draw_textured_polygon(int n, Vertex_t* vertice, Color col)
+void C_Renderer::draw_polygon(ImVec2* verts, ImColor col)
 {
-    static int texture_id = pSurface->CreateNewTextureID(true);
-    static unsigned char buf[4] = { 255, 255, 255, 255 };
-    pSurface->DrawSetTextureRGBA(texture_id, buf, 1, 1);
-    pSurface->DrawSetColor(col);
-    pSurface->DrawSetTexture(texture_id);
-    pSurface->DrawTexturedPolygon(n, vertice);
+    draw->AddConvexPolyFilled(verts, IM_ARRAYSIZE(verts), col);
 }
 
 /*
- *  draw_circle
+ *  draw_cicle
  *  Draws a hollow circle
  */
-void C_Renderer::draw_circle(Vector2D position, float points, float radius, Color color)
+void C_Renderer::draw_circle(ImVec2 center, float radius, ImColor col)
 {
-    float step = (float)M_PI * 2.0f / points;
-    
-    for (float a = 0; a < (M_PI * 2.0f); a += step)
-    {
-        Vector2D start(radius * cosf(a) + position.x, radius * sinf(a) + position.y);
-        Vector2D end(radius * cosf(a + step) + position.x, radius * sinf(a + step) + position.y);
-        this->draw_line(start.x, start.y, end.x, end.y, color);
-    }
+    draw->AddCircle(center, radius, col);
 }
 
 /*
- *  draw_filled_circle
+ *  draw_circle_filled
  *  Draws a filled circle
  */
-void C_Renderer::draw_filled_circle(Vector2D center, float points, float radius, Color color)
+void C_Renderer::draw_circle_filled(ImVec2 center, float radius, ImColor col)
 {
-    static bool once = true;
-    
-    static vector<float> temppointsx;
-    static vector<float> temppointsy;
-    
-    if(once)
-    {
-        float step = (float) M_PI * 2.0f / points;
-        for(float a = 0; a < (M_PI * 2.0f); a += step)
-        {
-            temppointsx.push_back(cosf(a));
-            temppointsy.push_back(sinf(a));
-        }
-        once = false;
-    }
-    
-    vector<int> pointsx;
-    vector<int> pointsy;
-    vector<Vertex_t> vertices;
-    
-    for (int i = 0; i < temppointsx.size(); i++)
-    {
-        float x = radius * temppointsx[i] + center.x;
-        float y = radius * temppointsy[i] + center.y;
-        pointsx.push_back(x);
-        pointsy.push_back(y);
-        
-        vertices.push_back(Vertex_t(Vector2D(x, y)));
-    }
-    
-    this->draw_textured_polygon(points, vertices.data(), color);
+    draw->AddCircleFilled(center, radius, col);
 }
 
-
-/****************************** Misc / util ******************************/
-
-/*
- *  string_to_wstring
- *  Converts a string to a wide string
- */
-wstring C_Renderer::string_to_wstring(string str)
-{
-    wstring_convert<codecvt_utf8<wchar_t>, wchar_t> converter;
-    try
-    {
-        return converter.from_bytes(str);
-    }
-    catch(range_error& e)
-    {
-        wostringstream s;
-        s << str.c_str();
-        return s.str();
-    }
-}
+/****************************** Utils ******************************/
 
 /*
  *  get_text_size
- *  Gets the size of string
+ *  Returns the text width and height
  */
-Vector2D C_Renderer::get_text_size(const char* text, HFONT font)
+ImVec2 C_Renderer::get_text_size(const char* str)
 {
-    wstring wc = string_to_wstring(text);
-    int w, h;
-    pSurface->GetTextSize(font, wc.c_str(), w, h);
-    
-    return Vector2D(w, h);
-}
-
-/*
- *  draw_watermark
- *  Draws the watermark in the top left corner of the screen
- */
-void C_Renderer::draw_watermark()
-{
-    this->draw_string(10, 20, Color::PastelPink(), espfont, "csgobase");
+    return ImGui::CalcTextSize(str);
 }
 
 /****************************** Fonts ******************************/
 
-HFONT espfont, menufont;
+/*
+ *  Fonts namespace
+ */
+namespace Fonts
+{
+    ImFont* big;
+    ImFont* small;
+}
 
 /*
  *  create_font
- *  Creates a hfont
+ *  Loads a font and returns it
  */
-HFONT C_Renderer::create_font(const char* szFont, int tall, int flags)
+ImFont* C_Renderer::create_font(const char* font_path, float font_size)
 {
-    HFONT font = pSurface->CreateFont();
-    pSurface->SetFontGlyphSet(font, szFont, tall, 150, 0, 0, flags);
-    return font;
+    auto io = ImGui::GetIO();
+    ImFontConfig* font_conf = new ImFontConfig;
+    font_conf->OversampleH = font_conf->OversampleV = 1;
+    font_conf->PixelSnapH = true;
+    
+    return io.Fonts->AddFontFromFileTTF(font_path, font_size, font_conf);
 }
 
 /*
- *  initialise_fonts
- *  Creates all fonts
+ *  init_fonts
+ *  Initialises fonts
  */
-void C_Renderer::initialise_fonts()
+void C_Renderer::init_fonts()
 {
-    espfont     = this->create_font("Verdana Bold", 13, FONTFLAG_DROPSHADOW);
-    menufont    = this->create_font("Tahoma", 11, FONTFLAG_DROPSHADOW);
-    
-    print("Fonts initlaised", Color::Orange());
+    Fonts::big  = create_font("/Library/Fonts/ProggyClean.ttf", 13.f);
+    Fonts::small= create_font("/Library/Fonts/ProggyTiny.ttf",  10.f);
 }
-

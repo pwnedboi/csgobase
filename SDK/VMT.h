@@ -49,7 +49,6 @@ public:
     
     void ReleaseVMT()
     {
-        *this->interface = original_vmt;
-    }
+     }
     
 };

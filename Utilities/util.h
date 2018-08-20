@@ -13,19 +13,19 @@ struct box_t
 
 void print(string str, Color col = Color::PastelPink(), string prefix = "debug");
 
-bool WorldToScreen(Vector& in, Vector& out);
+bool world_to_screen(Vector& in, Vector& out);
 
-bool IsPointVisible(Vector point);
-bool IsPlayerVisible(C_BasePlayer* entity);
-bool IsHitboxVisible(C_BasePlayer* player, int hitbox);
+bool is_point_visible(Vector point);
+bool is_player_visible(C_BasePlayer* player);
+bool is_hitbox_visible(C_BasePlayer* player, int hitbox);
 
 bool get_box(C_BaseEntity* pEntity, box_t& box);
 
-long get_timestamp();
+long timestamp();
 
-Color ImVecToColor(ImVec4 col, bool alpha = false);
+Color imvec_to_color(ImVec4 col, bool alpha = false);
 
-string GetWeaponName(C_BaseCombatWeapon* weapon);
+string get_weapon_name(C_BaseCombatWeapon* weapon);
 
-C_BaseCombatWeapon* GetActiveWeapon(C_BasePlayer* player);
+C_BaseCombatWeapon* get_active_weapon(C_BasePlayer* player);
 

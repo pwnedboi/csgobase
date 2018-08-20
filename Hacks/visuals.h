@@ -7,6 +7,7 @@ class C_Visuals
 {
 private:
     
+    void draw_esp_box(int x, int y, int w, int h, ImColor col);
     
 public:
     

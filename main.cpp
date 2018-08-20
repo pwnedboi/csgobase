@@ -15,15 +15,7 @@
  */
 
 #include "main.h"
-#include "Interfaces/Hooker.h"
-
-
-namespace Global
-{
-    CUserCmd*     cmd;
-    C_BasePlayer* local;
-    C_BaseCombatWeapon* localWeapon;
-}
+#include "hooker.h"
 
 
 int __attribute__((constructor)) main()

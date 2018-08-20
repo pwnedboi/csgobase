@@ -1,10 +1,21 @@
-/*      Interfaces.cpp
+/*      global.cpp
  *
  *  Defines interfaces
  *
  */
 
 #include "main.h"
+
+namespace Global
+{
+    CUserCmd*     cmd;
+    C_BasePlayer* local;
+    C_BaseCombatWeapon* localWeapon;
+}
+
+C_Settings set;
+
+bool* bSendPacket   = nullptr;
 
 ICvar*              pCvar;
 IPanel*             pPanel;
@@ -25,12 +36,10 @@ IPrediction*        pPrediction;
 IGameMovement*      pGameMovement;
 IMoveHelper*        pMoveHelper;
 IPhysicsSurfaceProps*pPhysics;
+CMoveData*           pMoveData;
 
 
-CMoveData*           MoveData;
-SendClanTagFn        SetTag;
-
-
+SendClanTagFn         SetTag;
 RandomSeedFn          RandomSeed;
 RandomFloatFn         RandomFloat;
 RandomFloatExpFn      RandomFloatExp;

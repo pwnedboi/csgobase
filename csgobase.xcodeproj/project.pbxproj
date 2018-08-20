@@ -19,13 +19,14 @@
 		B65931762008DA3600EA59D1 /* patternscanner.h in Headers */ = {isa = PBXBuildFile; fileRef = B65931742008DA3600EA59D1 /* patternscanner.h */; };
 		B65931792008DA4000EA59D1 /* offsets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B65931772008DA4000EA59D1 /* offsets.cpp */; };
 		B659317A2008DA4000EA59D1 /* offsets.h in Headers */ = {isa = PBXBuildFile; fileRef = B65931782008DA4000EA59D1 /* offsets.h */; };
-		B65931852008E2D600EA59D1 /* Interfaces.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B65931832008E2D600EA59D1 /* Interfaces.cpp */; };
-		B65931862008E2D600EA59D1 /* Interfaces.h in Headers */ = {isa = PBXBuildFile; fileRef = B65931842008E2D600EA59D1 /* Interfaces.h */; };
 		B65931C0200B5F5D00EA59D1 /* util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B65931BE200B5F5D00EA59D1 /* util.cpp */; };
 		B65931C1200B5F5D00EA59D1 /* util.h in Headers */ = {isa = PBXBuildFile; fileRef = B65931BF200B5F5D00EA59D1 /* util.h */; };
-		B65931C8200DF88200EA59D1 /* Hooker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B65931C6200DF88200EA59D1 /* Hooker.cpp */; };
-		B65931C9200DF88200EA59D1 /* Hooker.h in Headers */ = {isa = PBXBuildFile; fileRef = B65931C7200DF88200EA59D1 /* Hooker.h */; };
 		B65931CB200DFBBD00EA59D1 /* PaintTraverse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B65931CA200DFBBD00EA59D1 /* PaintTraverse.cpp */; };
+		B6818FD82113EB08004376F2 /* hooker.h in Headers */ = {isa = PBXBuildFile; fileRef = B6818FD62113EB08004376F2 /* hooker.h */; };
+		B6818FD92113EB08004376F2 /* hooker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6818FD72113EB08004376F2 /* hooker.cpp */; };
+		B6818FDB2113EB10004376F2 /* settings.h in Headers */ = {isa = PBXBuildFile; fileRef = B6818FDA2113EB10004376F2 /* settings.h */; };
+		B6818FDE2113EB26004376F2 /* global.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6818FDC2113EB25004376F2 /* global.cpp */; };
+		B6818FDF2113EB26004376F2 /* global.h in Headers */ = {isa = PBXBuildFile; fileRef = B6818FDD2113EB26004376F2 /* global.h */; };
 		B6CC535A2030E0FC00BA92A0 /* visuals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6CC53582030E0FC00BA92A0 /* visuals.cpp */; };
 		B6CC535B2030E0FC00BA92A0 /* visuals.h in Headers */ = {isa = PBXBuildFile; fileRef = B6CC53592030E0FC00BA92A0 /* visuals.h */; };
 		B6D4D7E9203A4DF200A62845 /* CreateMove.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6D4D7E8203A4DF200A62845 /* CreateMove.cpp */; };
@@ -65,7 +66,6 @@
 		B65931622008D30C00EA59D1 /* renderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = renderer.h; path = Render/renderer.h; sourceTree = "<group>"; };
 		B65931652008D31600EA59D1 /* menu.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = menu.cpp; path = Render/menu.cpp; sourceTree = "<group>"; };
 		B65931662008D31600EA59D1 /* menu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = menu.h; path = Render/menu.h; sourceTree = "<group>"; };
-		B65931692008D41500EA59D1 /* settings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = settings.h; path = Variables/settings.h; sourceTree = "<group>"; };
 		B659316A2008D75A00EA59D1 /* Vector3D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Vector3D.h; path = SDK/Vector3D.h; sourceTree = "<group>"; };
 		B659316C2008D80300EA59D1 /* Vector2D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Vector2D.h; path = SDK/Vector2D.h; sourceTree = "<group>"; };
 		B659316D2008D80F00EA59D1 /* QAngle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = QAngle.h; path = SDK/QAngle.h; sourceTree = "<group>"; };
@@ -82,8 +82,6 @@
 		B65931802008E20D00EA59D1 /* ISurface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ISurface.h; path = SDK/ISurface.h; sourceTree = "<group>"; };
 		B65931812008E21600EA59D1 /* IPanel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IPanel.h; path = SDK/IPanel.h; sourceTree = "<group>"; };
 		B65931822008E22600EA59D1 /* ICvar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ICvar.h; path = SDK/ICvar.h; sourceTree = "<group>"; };
-		B65931832008E2D600EA59D1 /* Interfaces.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Interfaces.cpp; path = Interfaces/Interfaces.cpp; sourceTree = "<group>"; };
-		B65931842008E2D600EA59D1 /* Interfaces.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Interfaces.h; path = Interfaces/Interfaces.h; sourceTree = "<group>"; };
 		B65931872008E5B100EA59D1 /* VMT.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VMT.h; path = SDK/VMT.h; sourceTree = "<group>"; };
 		B65931B0200B4F6000EA59D1 /* IClientEntityList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IClientEntityList.h; path = SDK/IClientEntityList.h; sourceTree = "<group>"; };
 		B65931B1200B524000EA59D1 /* IVDebugOverlay.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IVDebugOverlay.h; path = SDK/IVDebugOverlay.h; sourceTree = "<group>"; };
@@ -103,9 +101,12 @@
 		B65931C3200B696700EA59D1 /* IClientEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IClientEntity.h; path = SDK/IClientEntity.h; sourceTree = "<group>"; };
 		B65931C4200B6D9000EA59D1 /* CUserCmd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CUserCmd.h; path = SDK/CUserCmd.h; sourceTree = "<group>"; };
 		B65931C5200B6DBD00EA59D1 /* CViewSetup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CViewSetup.h; path = SDK/CViewSetup.h; sourceTree = "<group>"; };
-		B65931C6200DF88200EA59D1 /* Hooker.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Hooker.cpp; path = Interfaces/Hooker.cpp; sourceTree = "<group>"; };
-		B65931C7200DF88200EA59D1 /* Hooker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Hooker.h; path = Interfaces/Hooker.h; sourceTree = "<group>"; };
 		B65931CA200DFBBD00EA59D1 /* PaintTraverse.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PaintTraverse.cpp; path = Hooks/PaintTraverse.cpp; sourceTree = "<group>"; };
+		B6818FD62113EB08004376F2 /* hooker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hooker.h; path = Hooker/hooker.h; sourceTree = "<group>"; };
+		B6818FD72113EB08004376F2 /* hooker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hooker.cpp; path = Hooker/hooker.cpp; sourceTree = "<group>"; };
+		B6818FDA2113EB10004376F2 /* settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = settings.h; path = Settings/settings.h; sourceTree = "<group>"; };
+		B6818FDC2113EB25004376F2 /* global.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = global.cpp; sourceTree = "<group>"; };
+		B6818FDD2113EB26004376F2 /* global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = global.h; sourceTree = "<group>"; };
 		B6CC53582030E0FC00BA92A0 /* visuals.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = visuals.cpp; path = Hacks/visuals.cpp; sourceTree = "<group>"; };
 		B6CC53592030E0FC00BA92A0 /* visuals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = visuals.h; path = Hacks/visuals.h; sourceTree = "<group>"; };
 		B6D4D7E8203A4DF200A62845 /* CreateMove.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CreateMove.cpp; path = Hooks/CreateMove.cpp; sourceTree = "<group>"; };
@@ -157,7 +158,7 @@
 				B60C88D520030DEC00D0615B /* Render */,
 				B60C88D220030DD900D0615B /* Features */,
 				B60C88D620030DF800D0615B /* Hooks */,
-				B60C88D720030E0200D0615B /* Interfaces */,
+				B60C88D720030E0200D0615B /* Hooker */,
 				B60C88D020030DCC00D0615B /* Main */,
 				B60C88D120030DD200D0615B /* SDK */,
 				B60C88CA20030DA100D0615B /* Products */,
@@ -178,6 +179,8 @@
 			children = (
 				B60C88D820030F0300D0615B /* main.cpp */,
 				B60C88D920030F0300D0615B /* main.h */,
+				B6818FDC2113EB25004376F2 /* global.cpp */,
+				B6818FDD2113EB26004376F2 /* global.h */,
 			);
 			name = Main;
 			sourceTree = "<group>";
@@ -222,7 +225,7 @@
 		B60C88D420030DE600D0615B /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				B65931692008D41500EA59D1 /* settings.h */,
+				B6818FDA2113EB10004376F2 /* settings.h */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -253,15 +256,13 @@
 			name = Hooks;
 			sourceTree = "<group>";
 		};
-		B60C88D720030E0200D0615B /* Interfaces */ = {
+		B60C88D720030E0200D0615B /* Hooker */ = {
 			isa = PBXGroup;
 			children = (
-				B65931C6200DF88200EA59D1 /* Hooker.cpp */,
-				B65931C7200DF88200EA59D1 /* Hooker.h */,
-				B65931832008E2D600EA59D1 /* Interfaces.cpp */,
-				B65931842008E2D600EA59D1 /* Interfaces.h */,
+				B6818FD72113EB08004376F2 /* hooker.cpp */,
+				B6818FD62113EB08004376F2 /* hooker.h */,
 			);
-			name = Interfaces;
+			name = Hooker;
 			sourceTree = "<group>";
 		};
 		B659316B2008D7EE00EA59D1 /* Vector */ = {
@@ -391,8 +392,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B65931C9200DF88200EA59D1 /* Hooker.h in Headers */,
-				B65931862008E2D600EA59D1 /* Interfaces.h in Headers */,
 				B6D5D02D20AAC06900AB99B1 /* aim.h in Headers */,
 				B659317A2008DA4000EA59D1 /* offsets.h in Headers */,
 				B6F3F5E6205F63CF0059CBAB /* imgui.h in Headers */,
@@ -402,11 +401,14 @@
 				B6CC535B2030E0FC00BA92A0 /* visuals.h in Headers */,
 				B6F3F5DD205F63CF0059CBAB /* imconfig.h in Headers */,
 				B6D5D03120AAC07400AB99B1 /* misc.h in Headers */,
+				B6818FDB2113EB10004376F2 /* settings.h in Headers */,
 				B60C88DB20030F0300D0615B /* main.h in Headers */,
+				B6818FDF2113EB26004376F2 /* global.h in Headers */,
 				B6D5D02520AA975100AB99B1 /* util_math.h in Headers */,
 				B65931712008DA1900EA59D1 /* netvars.h in Headers */,
 				B6F3F5E1205F63CF0059CBAB /* stb_truetype.h in Headers */,
 				B65931C1200B5F5D00EA59D1 /* util.h in Headers */,
+				B6818FD82113EB08004376F2 /* hooker.h in Headers */,
 				B6D5D02920AAB05300AB99B1 /* hooks.h in Headers */,
 				B6D5D03520AAC07D00AB99B1 /* movement.h in Headers */,
 				B6F3F5E4205F63CF0059CBAB /* imgui_impl_sdl_gl2.h in Headers */,
@@ -474,16 +476,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				B6D5D02C20AAC06900AB99B1 /* aim.cpp in Sources */,
+				B6818FD92113EB08004376F2 /* hooker.cpp in Sources */,
 				B65931632008D30C00EA59D1 /* renderer.cpp in Sources */,
 				B6D4D7E9203A4DF200A62845 /* CreateMove.cpp in Sources */,
 				B6D5D03020AAC07400AB99B1 /* misc.cpp in Sources */,
-				B65931C8200DF88200EA59D1 /* Hooker.cpp in Sources */,
 				B6D5D02720AAAF5C00AB99B1 /* DrawModelExecute.cpp in Sources */,
+				B6818FDE2113EB26004376F2 /* global.cpp in Sources */,
 				B65931CB200DFBBD00EA59D1 /* PaintTraverse.cpp in Sources */,
 				B60C88DA20030F0300D0615B /* main.cpp in Sources */,
 				B6F3F5D2205F62630059CBAB /* OpenGL.cpp in Sources */,
 				B65931C0200B5F5D00EA59D1 /* util.cpp in Sources */,
-				B65931852008E2D600EA59D1 /* Interfaces.cpp in Sources */,
 				B6D5D02420AA975100AB99B1 /* util_math.cpp in Sources */,
 				B6D5D03420AAC07D00AB99B1 /* movement.cpp in Sources */,
 				B65931672008D31600EA59D1 /* menu.cpp in Sources */,

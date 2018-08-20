@@ -13,14 +13,3 @@ void FrameStage_hk(void* thisptr, ClientFrameStage_t curStage);
 void DrawModelExecute_hk(void* thisptr, void* context, void* state, ModelRenderInfo_t& model_info, matrix3x4_t* pCustomBoneToWorld);
 int  KeyEvent_hk(void* thisptr, int eventcode, int keycode, const char* currentbinding);
 void OpenGL_hk();
-
-
-extern bool* bSendPacket;
-
-
-namespace Global
-{
-    extern CUserCmd*     cmd;
-    extern C_BasePlayer* local;
-    extern C_BaseCombatWeapon* localWeapon;
-}

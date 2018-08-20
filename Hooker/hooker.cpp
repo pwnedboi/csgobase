@@ -1,4 +1,4 @@
-/*      Hooker.cpp
+/*      hooker.cpp
  *
  *  - Initialises interfaces
  *  - Initialises hooks
@@ -7,28 +7,24 @@
  */
 
 #include "main.h"
-#include "Hooker.h"
-
-bool* bSendPacket = nullptr;
-
-CSettings set;
+#include "hooker.h"
 
 void init_interfaces()
 {
     pSurface        = GetInterface<ISurface>("./bin/osx64/vguimatsurface.dylib", "VGUI_Surface");
     pPanel          = GetInterface<IPanel>("./bin/osx64/vgui2.dylib", "VGUI_Panel");
     pCvar           = GetInterface<ICvar>("./bin/osx64/materialsystem.dylib", "VEngineCvar");
-    pClient         = GetInterface<IBaseClientDLL>("./csgo/bin/osx64/client.dylib", "VClient");
+    pClient         = GetInterface<IBaseClientDLL>("./csgo/bin/osx64/client_panorama.dylib", "VClient");
     pEngine         = GetInterface<IEngineClient>("./bin/osx64/engine.dylib", "VEngineClient");
-    pEntList        = GetInterface<IClientEntityList>("./csgo/bin/osx64/client.dylib", "VClientEntityList");
+    pEntList        = GetInterface<IClientEntityList>("./csgo/bin/osx64/client_panorama.dylib", "VClientEntityList");
     pOverlay        = GetInterface<IVDebugOverlay>("./bin/osx64/engine.dylib", "VDebugOverlay");
     pEngineTrace    = GetInterface<IEngineTrace>("./bin/osx64/engine.dylib", "EngineTraceClient");
     pModelInfo      = GetInterface<IVModelInfo>("./bin/osx64/engine.dylib", "VModelInfoClient");
     pInputSystem    = GetInterface<IInputSystem>("./bin/osx64/inputsystem.dylib", "InputSystemVersion");
     pModelRender    = GetInterface<IVModelRender>("./bin/osx64/engine.dylib", "VEngineModel");
     pMatSystem      = GetInterface<IMaterialSystem>("./bin/osx64/materialsystem.dylib", "VMaterialSystem");
-    pPrediction     = GetInterface<IPrediction>("./csgo/bin/osx64/client.dylib", "VClientPrediction");
-    pGameMovement   = GetInterface<IGameMovement>("./csgo/bin/osx64/client.dylib", "GameMovement");
+    pPrediction     = GetInterface<IPrediction>("./csgo/bin/osx64/client_panorama.dylib", "VClientPrediction");
+    pGameMovement   = GetInterface<IGameMovement>("./csgo/bin/osx64/client_panorama.dylib", "GameMovement");
     pPhysics        = GetInterface<IPhysicsSurfaceProps>("./bin/osx64/vphysics.dylib", "VPhysicsSurfaceProps");
 }
 
@@ -43,18 +39,18 @@ void protect_addr(void* addr, int prot)
 
 void init_hooks()
 {
-    PatternScanner* Scanner = PatternScanner::get();
-    uintptr_t clientModePtr = Scanner->GetPointer("client.dylib",   (unsigned char*)CLIENTMODE_SIG, CLIENTMODE_MASK, 0xF) + 0x4;
-    uintptr_t globalVarsPtr = Scanner->GetPointer("client.dylib",   (unsigned char*)GLOBALS_SIG,    GLOBALS_MASK, 0x3)    + 0x4;
-    uintptr_t clanTagPtr    = Scanner->GetPointer("engine.dylib",   (unsigned char*)CLANTAG_SIG,    CLANTAG_MASK, 0xB)    + 0x4;
-    uintptr_t sendPacketPtr = Scanner->GetProcedure("engine.dylib", (unsigned char*)SENDPACKET_SIG, SENDPACKET_MASK, 0x1) + 0x2;
+    C_PatternScanner* scanner = C_PatternScanner::get();
+    uintptr_t clientModePtr = scanner->get_pointer("client_panorama.dylib",   (Byte*)CLIENTMODE_SIG, CLIENTMODE_MASK, 0xF) + 0x4;
+    uintptr_t globalVarsPtr = scanner->get_pointer("client_panorama.dylib",   (Byte*)GLOBALS_SIG,    GLOBALS_MASK, 0x3)    + 0x4;
+    uintptr_t clanTagPtr    = scanner->get_pointer("engine.dylib",   (Byte*)CLANTAG_SIG,    CLANTAG_MASK, 0xB)    + 0x4;
+    uintptr_t sendPacketPtr = scanner->get_procedure("engine.dylib", (Byte*)SENDPACKET_SIG, SENDPACKET_MASK, 0x1) + 0x2;
     
 
     bSendPacket = reinterpret_cast<bool*>(sendPacketPtr);
     protect_addr(bSendPacket, PROT_READ | PROT_WRITE | PROT_EXEC);
 
     
-    void* handle        = dlopen("./csgo/bin/osx64/client.dylib", RTLD_NOLOAD | RTLD_NOW);
+    void* handle        = dlopen("./csgo/bin/osx64/client_panorama.dylib", RTLD_NOLOAD | RTLD_NOW);
     RandomSeed          = reinterpret_cast<RandomSeedFn>         (dlsym(handle, "RandomSeed"));
     RandomInt           = reinterpret_cast<RandomIntFn>          (dlsym(handle, "RandomInt"));
     RandomFloat         = reinterpret_cast<RandomFloatFn>        (dlsym(handle, "RandomFloat"));

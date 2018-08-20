@@ -7,6 +7,8 @@
 #include "main.h"
 #include "menu.h"
 
+#include "visuals.h"
+
 #include "imgui.h"
 #include "imgui_impl_sdl_gl2.h"
 
@@ -296,14 +298,22 @@ int SDLCALL SDL_Init(Uint32 flags)
     return SDL_InitFn(flags);
 }
 
-
-uintptr_t* swapwindow_ptr = nullptr;
-uintptr_t swapwindow_original = NULL;
-
-static SDL_GLContext context = NULL;
-void SwapWindow(SDL_Window* window)
+int SDLCALL SDL_GL_SetSwapInterval(int interval)
 {
-    static void (*oSDL_GL_SwapWindow)(SDL_Window*)= reinterpret_cast<void (*)(SDL_Window*)>(swapwindow_original);
+    typedef int (*currFn)(int);
+    static currFn SDL_GL_SetSwapIntervalFn = reinterpret_cast<currFn>(dlsym(RTLD_DEFAULT, "SDL_GL_SetSwapInterval"));
+    return SDL_GL_SetSwapIntervalFn(interval);
+}
+
+
+
+uintptr_t  oSwapWindow = NULL;
+uintptr_t* pSwapWindow = nullptr;
+
+void SwapWindow_hk(SDL_Window* window)
+{
+    static SDL_GLContext context = NULL;
+    static void (*oSDL_GL_SwapWindow)(SDL_Window*)= reinterpret_cast<void (*)(SDL_Window*)>(oSwapWindow);
     static SDL_GLContext original_context = SDL_GL_GetCurrentContext();
     
     if(!context)
@@ -313,21 +323,50 @@ void SwapWindow(SDL_Window* window)
         ImGuiIO& io = ImGui::GetIO(); (void)io;
         ImGui_ImplSdlGL2_Init(window);
         
-        // Initialise the menu style
+        /*
+         *  Init the menu style
+         */
         menu->setup_style();
+        
+        /*
+         *  Init the fonts
+         */
+        render->init_fonts();
     }
     
     SDL_GL_MakeCurrent(window, context);
+    
+    /*
+     *  Disable vsync
+     */
+    if(SDL_GL_SetSwapInterval(0) < 0)
+        print("Unable to disable vsync!");
+    
     ImGui_ImplSdlGL2_NewFrame(window);
     
     
+    render->start();
     
-    if(set.menu)
+    /*
+     *  Draw everything between start and finish
+     */
+    
+    if(Global::local)
     {
-        menu->render();
+        
+        visuals->draw_player_esp();
+        
     }
     
-    // Draw the mouse
+    render->finish();
+    
+    
+    if(set.menu)
+        menu->render();
+    
+    /*
+     *  Draw the mouse
+     */
     static ImGuiIO& io = ImGui::GetIO();
     io.MouseDrawCursor = set.menu;
 
@@ -345,9 +384,9 @@ void SwapWindow(SDL_Window* window)
 
 void OpenGL_hk()
 {
-    uintptr_t swapwindowFn  = reinterpret_cast<uintptr_t>(dlsym(RTLD_DEFAULT, "SDL_GL_SwapWindow"));
-    uintptr_t sdllib        = reinterpret_cast<uintptr_t>(glHelper::module::module("libSDL2-2.0.0.dylib").start());
-    swapwindow_ptr          = reinterpret_cast<uintptr_t*>(glHelper::GetAbsoluteAddress(sdllib, swapwindowFn, 0xF, 0x4));
-    swapwindow_original     = *swapwindow_ptr;
-    *swapwindow_ptr         = reinterpret_cast<uintptr_t>(&SwapWindow);
+    uintptr_t SwapWindowFn  = reinterpret_cast<uintptr_t>(dlsym(RTLD_DEFAULT, "SDL_GL_SwapWindow"));
+    uintptr_t sdl_lib       = reinterpret_cast<uintptr_t>(glHelper::module::module("libSDL2-2.0.0.dylib").start());
+    pSwapWindow             = reinterpret_cast<uintptr_t*>(glHelper::GetAbsoluteAddress(sdl_lib, SwapWindowFn, 0xF, 0x4));
+    oSwapWindow             = *pSwapWindow;
+    *pSwapWindow            = reinterpret_cast<uintptr_t>(&SwapWindow_hk);
 }

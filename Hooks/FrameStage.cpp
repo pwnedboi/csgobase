@@ -14,7 +14,7 @@ void FrameStage_hk(void* thisptr, ClientFrameStage_t curStage)
         Global::local = (C_BasePlayer*)pEntList->GetClientEntity(pEngine->GetLocalPlayer());
     
     if(!Global::localWeapon && Global::local)
-        Global::localWeapon = GetActiveWeapon(Global::local);
+        Global::localWeapon = get_active_weapon(Global::local);
     
     
     
