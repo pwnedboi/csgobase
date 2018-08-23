@@ -29,6 +29,8 @@
 		B6818FDF2113EB26004376F2 /* global.h in Headers */ = {isa = PBXBuildFile; fileRef = B6818FDD2113EB26004376F2 /* global.h */; };
 		B6CC535A2030E0FC00BA92A0 /* visuals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6CC53582030E0FC00BA92A0 /* visuals.cpp */; };
 		B6CC535B2030E0FC00BA92A0 /* visuals.h in Headers */ = {isa = PBXBuildFile; fileRef = B6CC53592030E0FC00BA92A0 /* visuals.h */; };
+		B6CD6B09212B65DF00E3087D /* util_sdl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6CD6B07212B65DF00E3087D /* util_sdl.cpp */; };
+		B6CD6B0A212B65DF00E3087D /* util_sdl.h in Headers */ = {isa = PBXBuildFile; fileRef = B6CD6B08212B65DF00E3087D /* util_sdl.h */; };
 		B6D4D7E9203A4DF200A62845 /* CreateMove.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6D4D7E8203A4DF200A62845 /* CreateMove.cpp */; };
 		B6D4D7EB203A4E1100A62845 /* FrameStage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6D4D7EA203A4E1100A62845 /* FrameStage.cpp */; };
 		B6D5D02420AA975100AB99B1 /* util_math.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6D5D02220AA975100AB99B1 /* util_math.cpp */; };
@@ -109,6 +111,8 @@
 		B6818FDD2113EB26004376F2 /* global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = global.h; sourceTree = "<group>"; };
 		B6CC53582030E0FC00BA92A0 /* visuals.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = visuals.cpp; path = Hacks/visuals.cpp; sourceTree = "<group>"; };
 		B6CC53592030E0FC00BA92A0 /* visuals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = visuals.h; path = Hacks/visuals.h; sourceTree = "<group>"; };
+		B6CD6B07212B65DF00E3087D /* util_sdl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = util_sdl.cpp; path = Utilities/util_sdl.cpp; sourceTree = "<group>"; };
+		B6CD6B08212B65DF00E3087D /* util_sdl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = util_sdl.h; path = Utilities/util_sdl.h; sourceTree = "<group>"; };
 		B6D4D7E8203A4DF200A62845 /* CreateMove.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CreateMove.cpp; path = Hooks/CreateMove.cpp; sourceTree = "<group>"; };
 		B6D4D7EA203A4E1100A62845 /* FrameStage.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = FrameStage.cpp; path = Hooks/FrameStage.cpp; sourceTree = "<group>"; };
 		B6D5D02220AA975100AB99B1 /* util_math.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = util_math.cpp; path = Utilities/util_math.cpp; sourceTree = "<group>"; };
@@ -218,6 +222,8 @@
 				B65931BF200B5F5D00EA59D1 /* util.h */,
 				B6D5D02220AA975100AB99B1 /* util_math.cpp */,
 				B6D5D02320AA975100AB99B1 /* util_math.h */,
+				B6CD6B07212B65DF00E3087D /* util_sdl.cpp */,
+				B6CD6B08212B65DF00E3087D /* util_sdl.h */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -408,6 +414,7 @@
 				B65931712008DA1900EA59D1 /* netvars.h in Headers */,
 				B6F3F5E1205F63CF0059CBAB /* stb_truetype.h in Headers */,
 				B65931C1200B5F5D00EA59D1 /* util.h in Headers */,
+				B6CD6B0A212B65DF00E3087D /* util_sdl.h in Headers */,
 				B6818FD82113EB08004376F2 /* hooker.h in Headers */,
 				B6D5D02920AAB05300AB99B1 /* hooks.h in Headers */,
 				B6D5D03520AAC07D00AB99B1 /* movement.h in Headers */,
@@ -488,6 +495,7 @@
 				B65931C0200B5F5D00EA59D1 /* util.cpp in Sources */,
 				B6D5D02420AA975100AB99B1 /* util_math.cpp in Sources */,
 				B6D5D03420AAC07D00AB99B1 /* movement.cpp in Sources */,
+				B6CD6B09212B65DF00E3087D /* util_sdl.cpp in Sources */,
 				B65931672008D31600EA59D1 /* menu.cpp in Sources */,
 				B6F3F5DE205F63CF0059CBAB /* imgui_impl_sdl_gl2.cpp in Sources */,
 				B6D4D7EB203A4E1100A62845 /* FrameStage.cpp in Sources */,

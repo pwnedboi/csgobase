@@ -185,6 +185,17 @@ ImVec2 C_Renderer::get_text_size(const char* str)
     return ImGui::CalcTextSize(str);
 }
 
+/*
+ *  in_area
+ *  Returns true if the mouse is in the given area
+ */
+bool C_Renderer::in_area(int x, int y, int w, int h)
+{
+    auto io = ImGui::GetIO();
+    auto mouse = io.MousePos;
+    return (mouse.x > x && mouse.y > y) && (mouse.x < x + w && mouse.y < y + h);
+}
+
 /****************************** Fonts ******************************/
 
 /*

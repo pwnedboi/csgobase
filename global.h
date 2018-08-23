@@ -14,6 +14,7 @@ extern C_Settings set;
 
 extern bool* bSendPacket;
 
+
 extern ICvar*               pCvar;
 extern IPanel*              pPanel;
 extern ISurface*            pSurface;

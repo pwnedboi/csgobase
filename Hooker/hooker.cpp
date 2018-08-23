@@ -9,6 +9,10 @@
 #include "main.h"
 #include "hooker.h"
 
+/*
+ *  init_interfaces
+ *  Finds all interfaces
+ */
 void init_interfaces()
 {
     pSurface        = GetInterface<ISurface>("./bin/osx64/vguimatsurface.dylib", "VGUI_Surface");
@@ -28,7 +32,10 @@ void init_interfaces()
     pPhysics        = GetInterface<IPhysicsSurfaceProps>("./bin/osx64/vphysics.dylib", "VPhysicsSurfaceProps");
 }
 
-
+/*
+ *
+ *
+ */
 void protect_addr(void* addr, int prot)
 {
     long pagesize = sysconf(_SC_PAGESIZE);
@@ -36,7 +43,10 @@ void protect_addr(void* addr, int prot)
     mprotect(address, sizeof(address), prot);
 }
 
-
+/*
+ *  init_hooks
+ *  Finds pointers then initiliases VMT's and game functions
+ */
 void init_hooks()
 {
     C_PatternScanner* scanner = C_PatternScanner::get();
@@ -73,7 +83,10 @@ void init_hooks()
     materialVMT     = new VMT(pMatSystem);
 }
 
-
+/*
+ *  hook_functions
+ *  Applies the hooks
+ */
 void hook_functions()
 {
     createmoveVMT->HookVM((void*)CreateMove_hk, 25);
@@ -91,6 +104,10 @@ void hook_functions()
     print("Functions hooked", Color::Orange());
 }
 
+/*
+ *  init_settings
+ *  Initialises variables
+ */
 void init_settings()
 {
     // Initialise variables here

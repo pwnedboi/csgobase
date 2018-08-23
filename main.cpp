@@ -6,7 +6,7 @@
  *  - Use osxinj to inject
  *  - IMPL_HOOK just prints "hook_name hooked" to console
  *  - The print() function prints to console, args : string, color = Pastel pink, prefix = "debug"
- *
+ *  - Install the fonts into /Library/Fonts/ and not ~/Library/Fonts/
  *
  *
  *

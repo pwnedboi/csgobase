@@ -1,6 +1,6 @@
 /*      global.cpp
  *
- *  Defines interfaces
+ *
  *
  */
 
@@ -17,6 +17,9 @@ C_Settings set;
 
 bool* bSendPacket   = nullptr;
 
+/*
+ *  Interfaces
+ */
 ICvar*              pCvar;
 IPanel*             pPanel;
 ISurface*           pSurface;
@@ -38,7 +41,9 @@ IMoveHelper*        pMoveHelper;
 IPhysicsSurfaceProps*pPhysics;
 CMoveData*           pMoveData;
 
-
+/*
+ *  Game Functions
+ */
 SendClanTagFn         SetTag;
 RandomSeedFn          RandomSeed;
 RandomFloatFn         RandomFloat;
@@ -46,7 +51,9 @@ RandomFloatExpFn      RandomFloatExp;
 RandomIntFn           RandomInt;
 RandomGaussianFloatFn RandomGaussianFloat;
 
-
+/*
+ *  VMT
+ */
 VMT* paintVMT;
 VMT* createmoveVMT;
 VMT* clientVMT;

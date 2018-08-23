@@ -6,18 +6,29 @@ class C_Menu
 {
 private:
     
-    enum
+    enum MenuTab
     {
-        AIMBOT,
-        VISUALS,
-        MISC,
-        COLOUR,
+        Aimbot,
+        Visuals,
+        Misc,
+        Colors,
     };
+    
+    ImGuiIO     io;
+    C_Renderer* draw;
+    
+private:
+    
+    void add_checkbox(int x, int y, const char* label, bool* value);
     
 public:
     
-    void render();
-    void setup_style();
+    C_Menu();
+    ~C_Menu();
+    
+    void init();
+    
+    void display();
     
 };
 

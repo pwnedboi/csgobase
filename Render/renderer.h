@@ -26,7 +26,6 @@ public:
     void start();
     void finish();
     
-    
     void draw_box(int x, int y, int w, int h, ImColor col);
     void draw_box_filled(int x, int y, int w, int h, ImColor col);
     void draw_box_outlined(int x, int y, int w, int h, int thickness, ImColor col, ImColor border);
@@ -38,10 +37,9 @@ public:
     void draw_polygon(ImVec2* verts, ImColor col);
     void draw_circle(ImVec2 center, float radius, ImColor col);
     void draw_circle_filled(ImVec2 center, float radius, ImColor col);
-    
-    
-    
-    ImVec2 get_text_size(const char* str);
+            
+    ImVec2  get_text_size(const char* str);
+    bool    in_area(int x, int y, int w, int h);
     
     void init_fonts();
     

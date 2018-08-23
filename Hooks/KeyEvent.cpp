@@ -22,6 +22,10 @@ int KeyEvent_hk(void* thisptr, int event_code, int keycode, const char* cur_bind
         if(keycode == KEY_INSERT || keycode == KEY_LALT || keycode == KEY_RALT)
         {
             set.menu = !set.menu;
+            
+            /*
+             *  Enable / disable the mouse
+             */
             pInputSystem->EnableInput(!set.menu);
         }
     }
