@@ -12,11 +12,11 @@
 #include <unordered_map>
 #include <fstream>
 #include <sstream>
-#include <codecvt>  // codecvt_utf8 // string to wchar
+#include <codecvt>          // codecvt_utf8 // string to wchar
 #include <dlfcn.h>
-#include <zconf.h>  // Byte
+#include <zconf.h>          // Byte
 #include <sys/stat.h>
-#include <sys/mman.h> // used in protect_addr
+#include <sys/mman.h>       // used in protect_addr
 #include <mach-o/dyld_images.h>
 
 using namespace std;

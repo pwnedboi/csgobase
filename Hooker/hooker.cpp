@@ -50,7 +50,7 @@ void protect_addr(void* addr, int prot)
 void init_hooks()
 {
     C_PatternScanner* scanner = C_PatternScanner::get();
-    uintptr_t clientModePtr = scanner->get_pointer("client_panorama.dylib",   (Byte*)CLIENTMODE_SIG, CLIENTMODE_MASK, 0xF) + 0x4;
+    uintptr_t clientModePtr = scanner->get_pointer("client_panorama.dylib",   (Byte*)CLIENTMODE_SIG, CLIENTMODE_MASK, 0xA) + 0x4;
     uintptr_t globalVarsPtr = scanner->get_pointer("client_panorama.dylib",   (Byte*)GLOBALS_SIG,    GLOBALS_MASK, 0x3)    + 0x4;
     uintptr_t clanTagPtr    = scanner->get_pointer("engine.dylib",   (Byte*)CLANTAG_SIG,    CLANTAG_MASK, 0xB)    + 0x4;
     uintptr_t sendPacketPtr = scanner->get_procedure("engine.dylib", (Byte*)SENDPACKET_SIG, SENDPACKET_MASK, 0x1) + 0x2;
