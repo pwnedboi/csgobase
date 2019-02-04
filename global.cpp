@@ -9,7 +9,7 @@
 namespace Global
 {
     CUserCmd*     cmd;
-    C_BasePlayer* local;
+    C_BasePlayer* localplayer;
     C_BaseCombatWeapon* localWeapon;
 }
 

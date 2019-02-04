@@ -6,7 +6,7 @@
 namespace Global
 {
     extern CUserCmd*     cmd;
-    extern C_BasePlayer* local;
+    extern C_BasePlayer* localplayer;
     extern C_BaseCombatWeapon* localWeapon;
 }
 

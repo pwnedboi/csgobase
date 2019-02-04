@@ -27,9 +27,9 @@ bool is_point_visible(Vector point)
     Ray_t ray;
     trace_t trace;
     CTraceFilter filter;
-    filter.pSkip = Global::local;
+    filter.pSkip = Global::localplayer;
     
-    ray.Init(Global::local->GetEyePosition(), point);
+    ray.Init(Global::localplayer->GetEyePosition(), point);
     pEngineTrace->TraceRay(ray, 0x4600400B, &filter, &trace);
     return (trace.fraction > 0.97f);
 }
@@ -39,9 +39,9 @@ bool is_player_visible(C_BasePlayer* entity)
     Ray_t ray;
     trace_t trace;
     CTraceFilter filter;
-    filter.pSkip = Global::local;
+    filter.pSkip = Global::localplayer;
     
-    ray.Init(Global::local->GetEyePosition(), entity->GetEyePosition());
+    ray.Init(Global::localplayer->GetEyePosition(), entity->GetEyePosition());
     pEngineTrace->TraceRay(ray, 0x4600400B, &filter, &trace);
     return (trace.m_pEnt == entity || trace.fraction > 0.99f);
 }
@@ -51,9 +51,9 @@ bool is_hitbox_visible(C_BasePlayer* player, int hitbox)
     Ray_t ray;
     trace_t trace;
     CTraceFilter filter;
-    filter.pSkip = Global::local;
+    filter.pSkip = Global::localplayer;
     
-    ray.Init(Global::local->GetEyePosition(), get_hitbox_position(player, hitbox));
+    ray.Init(Global::localplayer->GetEyePosition(), get_hitbox_position(player, hitbox));
     pEngineTrace->TraceRay(ray, 0x4600400B, &filter, &trace);
     return (trace.m_pEnt == player || trace.fraction > 0.99f);
 }

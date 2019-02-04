@@ -99,8 +99,8 @@ void hook_functions()
     clientVMT->HookVM((void*)FrameStage_hk, FrameStageIndex);
     clientVMT->ApplyVMT();
     
-    //surfaceVMT->HookVM((void*)LockCursor_hk, LockCursorIndex);
-    //surfaceVMT->ApplyVMT();
+    surfaceVMT->HookVM((void*)LockCursor_hk, LockCursorIndex);
+    surfaceVMT->ApplyVMT();
     
     OpenGL_hk();
     

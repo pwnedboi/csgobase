@@ -60,9 +60,9 @@ void SwapWindow_hk(SDL_Window* window)
     /*
      *  Should probably use pEngine->IsInGame
      */
-    if(Global::local)
+    if(pEngine->IsInGame())
     {
-        
+        if(set.visuals.enabled) // Might need to remove
         visuals->draw_player_esp();
         
     }

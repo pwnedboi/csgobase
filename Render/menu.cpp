@@ -38,28 +38,6 @@ void C_Menu::init()
 }
 
 /*
- *  add_checkbox
- *  Draws checkbox
- *  Just an example
- */
-void C_Menu::add_checkbox(int x, int y, const char* label, bool* value)
-{
-    const int w = 10, h = 10;
-    bool clicked = io.MouseClicked[0];
-    
-    if(draw->in_area(x, y, w, h) && clicked)
-        *value = !*value;
-    
-    /*
-     *  -1 and +2 are to make the border larger than the fill
-     */
-    draw->draw_box(x - 1, y - 1, w + 2, h + 2, ImColor(60, 60, 60));
-    
-    if(*value)
-        draw->draw_box_filled(x, y, w, h, ImColor(255, 0, 0));
-}
-
-/*
  *  display
  *  Draws the menu
  */
@@ -68,10 +46,11 @@ void C_Menu::display()
     // Below is ImGUI::Begin();
     draw->start();
     
-    ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
     ImGui::Checkbox("Enabled", &set.visuals.enabled);
-    
-    
+    ImGui::SliderInt("IntTest", &set.test.islider, 0, 180);
+    ImGui::SliderFloat("FloatTest", &set.test.fslider, 0, 180, "%.0f");
+    ImGui::ColorEdit4("Box colour", (float*)&set.colors.box, ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel);
+
     // Below is ImGui::End()
     draw->finish();
 }

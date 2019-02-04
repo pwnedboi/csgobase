@@ -2,7 +2,7 @@
 
 typedef void(*oPaintTraverse)(void*, VPANEL panel, bool forceRepaint, bool allowForce);
 typedef bool(*oCreateMove)(void*, float flSampleInput, CUserCmd* cmd);
-typedef void(*oLockCursor)(void*);
+typedef bool(*oLockCursor)(void*);
 typedef int (*oKeyEvent)(void*, int, int, const char*);
 typedef void(*oFrameStage)(void*, ClientFrameStage_t);
 typedef void(*oDrawModelExecute)(void*, void*, void*, const ModelRenderInfo_t&, matrix3x4_t*);
@@ -24,7 +24,7 @@ void OpenGL_hk();
 // ClientVMT
 #define KeyEventIndex 21
 #define FrameStageIndex 37
-// SurfaceVMT [Not used currently]
+// SurfaceVMT
 #define LockCursorIndex 67
 // ModelVMT
 #define DrawModelExecuteIndex 21

@@ -7,7 +7,6 @@ class IClientMode {};
 struct CGlowObjectManager;
 
 // Misc functions
-typedef bool (*ServerRankRevealAllFn) (float*);
 typedef void (*SendClanTagFn) (const char*, const char*);
 
 // Random functions

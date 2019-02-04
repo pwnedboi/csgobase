@@ -20,5 +20,6 @@ void PaintTraverse_hk(void* thisptr, VPANEL thisPanel, bool forceRepaint, bool a
     }
     
     if(thisPanel == lastPanel) {
+        //visuals->draw_player_esp();
     }    
 }

@@ -16,7 +16,7 @@ struct C_Settings
     
     struct
     {
-        bool enabled = false;
+        bool enabled = true;
     }visuals;
     
     struct
@@ -34,4 +34,10 @@ struct C_Settings
         
     }keys;
     
+    struct
+    {
+        bool checkbox = false;
+        int islider = 0;
+        float fslider = 0.f;
+    }test;
 };
