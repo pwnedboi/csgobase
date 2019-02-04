@@ -25,10 +25,9 @@ void C_Renderer::start()
     ImGui::SetNextWindowBgAlpha(03.f);
     ImGui::StyleColorsDark();
     
-    bool opened = false;
     int flags = ImGuiWindowFlags_NoResize|ImGuiWindowFlags_NoSavedSettings|ImGuiWindowFlags_NoCollapse|ImGuiWindowFlags_NoScrollbar;
     
-    ImGui::Begin("drawings window", &opened, flags);
+    ImGui::Begin("drawings window", &set.menu, flags);
     
     this->draw = ImGui::GetWindowDrawList();
 }
