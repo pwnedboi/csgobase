@@ -50,15 +50,15 @@ void protect_addr(void* addr, int prot)
 void init_hooks()
 {
     C_PatternScanner* scanner = C_PatternScanner::get();
-    uintptr_t clientModePtr = scanner->get_pointer("client_panorama.dylib",   (Byte*)CLIENTMODE_SIG, CLIENTMODE_MASK, 0xF) + 0x4;
-    uintptr_t globalVarsPtr = scanner->get_pointer("client_panorama.dylib",   (Byte*)GLOBALS_SIG,    GLOBALS_MASK, 0x3)    + 0x4;
-    uintptr_t clanTagPtr    = scanner->get_pointer("engine.dylib",   (Byte*)CLANTAG_SIG,    CLANTAG_MASK, 0xB)    + 0x4;
-    uintptr_t sendPacketPtr = scanner->get_procedure("engine.dylib", (Byte*)SENDPACKET_SIG, SENDPACKET_MASK, 0x1) + 0x2;
+    uintptr_t clientModePtr = scanner->get_pointer("client_panorama.dylib",(Byte*)CLIENTMODE_SIG, CLIENTMODE_MASK, 0xA) + 0x4;
+    uintptr_t globalVarsPtr = scanner->get_pointer("client_panorama.dylib",(Byte*)GLOBALS_SIG, GLOBALS_MASK, 0x3) + 0x4;
+    uintptr_t clanTagPtr    = scanner->get_pointer("engine.dylib",(Byte*)CLANTAG_SIG, CLANTAG_MASK, 0xB) + 0x4;
+    uintptr_t sendPacketPtr = scanner->get_procedure("engine.dylib",(Byte*)SENDPACKET_SIG, SENDPACKET_MASK, 0x1) + 0x2;
     
-
+    
     bSendPacket = reinterpret_cast<bool*>(sendPacketPtr);
     protect_addr(bSendPacket, PROT_READ | PROT_WRITE | PROT_EXEC);
-
+    
     
     void* handle        = dlopen("./csgo/bin/osx64/client_panorama.dylib", RTLD_NOLOAD | RTLD_NOW);
     RandomSeed          = reinterpret_cast<RandomSeedFn>         (dlsym(handle, "RandomSeed"));
@@ -89,15 +89,18 @@ void init_hooks()
  */
 void hook_functions()
 {
-    createmoveVMT->HookVM((void*)CreateMove_hk, 25);
+    createmoveVMT->HookVM((void*)CreateMove_hk, CreateMoveIndex);
     createmoveVMT->ApplyVMT();
     
-    paintVMT->HookVM((void*)PaintTraverse_hk, 42);
+    paintVMT->HookVM((void*)PaintTraverse_hk, PaintTraverseIndex);
     paintVMT->ApplyVMT();
 
-    clientVMT->HookVM((void*)KeyEvent_hk, 21);
-    clientVMT->HookVM((void*)FrameStage_hk, 37);
+    clientVMT->HookVM((void*)KeyEvent_hk, KeyEventIndex);
+    clientVMT->HookVM((void*)FrameStage_hk, FrameStageIndex);
     clientVMT->ApplyVMT();
+    
+    //surfaceVMT->HookVM((void*)LockCursor_hk, LockCursorIndex);
+    //surfaceVMT->ApplyVMT();
     
     OpenGL_hk();
     

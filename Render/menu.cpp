@@ -65,18 +65,14 @@ void C_Menu::add_checkbox(int x, int y, const char* label, bool* value)
  */
 void C_Menu::display()
 {
-    /*
-     *  Start drawing the menu
-     */
+    // Below is ImGUI::Begin();
     draw->start();
     
-    /*
-     *  Draw your menu items
-     */    
+    ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+    ImGui::Checkbox("Enabled", &set.visuals.enabled);
     
-    /*
-     *  Finish drawing the menu
-     */
+    
+    // Below is ImGui::End()
     draw->finish();
 }
 

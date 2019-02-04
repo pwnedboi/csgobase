@@ -19,17 +19,16 @@ void C_Renderer::start()
 {
     auto& style = ImGui::GetStyle();
     style.WindowBorderSize = 0.f;
+    style.Colors[ImGuiCol_CheckMark] = ImVec4(0.00f, 0.60f, 0.90f, 0.50f);
+
     
     ImGui::SetNextWindowPos({0, 0});
-    ImGui::SetNextWindowSize({1280, 720});
-    ImGui::SetNextWindowBgAlpha(0.f);
+    ImGui::SetNextWindowSize({400, 400});
+    ImGui::SetNextWindowBgAlpha(03.f);
+    ImGui::StyleColorsDark();
     
-    bool opened = true;
-    int flags = ImGuiWindowFlags_NoTitleBar      | ImGuiWindowFlags_NoResize |
-    ImGuiWindowFlags_NoScrollbar     | ImGuiWindowFlags_NoInputs |
-    ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing |
-    ImGuiWindowFlags_NoBringToFrontOnFocus;
-    
+    bool opened = false;
+    int flags = ImGuiWindowFlags_NoCollapse|ImGuiWindowFlags_NoTitleBar;
     
     ImGui::Begin("drawings window", &opened, flags);
     

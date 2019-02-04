@@ -6,8 +6,7 @@
 
 #include "main.h"
 
-void FrameStage_hk(void* thisptr, ClientFrameStage_t curStage)
-{
+void FrameStage_hk(void* thisptr, ClientFrameStage_t curStage) {
     IMPL_HOOK("FrameStageNotify");
     
     if(!Global::local)
@@ -16,14 +15,8 @@ void FrameStage_hk(void* thisptr, ClientFrameStage_t curStage)
     if(!Global::localWeapon && Global::local)
         Global::localWeapon = get_active_weapon(Global::local);
     
-    
-    
-    if(Global::local)
-    {
+    if(Global::local) {
         // Run features
     }
-    
-    
-    
-    clientVMT->GetOriginalMethod<oFrameStage>(37)(thisptr, curStage);
+    clientVMT->GetOriginalMethod<oFrameStage>(FrameStageIndex)(thisptr, curStage);
 }

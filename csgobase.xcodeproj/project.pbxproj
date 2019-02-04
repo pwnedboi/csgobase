@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9A5A684F2207F6D7001E89A8 /* LockCursor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A5A684E2207F6D7001E89A8 /* LockCursor.cpp */; };
 		B60C88DA20030F0300D0615B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B60C88D820030F0300D0615B /* main.cpp */; };
 		B60C88DB20030F0300D0615B /* main.h in Headers */ = {isa = PBXBuildFile; fileRef = B60C88D920030F0300D0615B /* main.h */; };
 		B65931632008D30C00EA59D1 /* renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B65931612008D30C00EA59D1 /* renderer.cpp */; };
@@ -60,6 +61,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9A5A684E2207F6D7001E89A8 /* LockCursor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = LockCursor.cpp; path = Hooks/LockCursor.cpp; sourceTree = "<group>"; };
 		B60C88C920030DA100D0615B /* csgobase.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = csgobase.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		B60C88D820030F0300D0615B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		B60C88D920030F0300D0615B /* main.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
@@ -208,9 +210,9 @@
 			isa = PBXGroup;
 			children = (
 				B6D5D02020AA96FC00AB99B1 /* Aim */,
+				B6D5D01D20AA96E700AB99B1 /* Visuals */,
 				B6D5D01F20AA96F600AB99B1 /* Misc */,
 				B6D5D02120AA970100AB99B1 /* Movement */,
-				B6D5D01D20AA96E700AB99B1 /* Visuals */,
 			);
 			name = Features;
 			sourceTree = "<group>";
@@ -256,6 +258,7 @@
 				B6D4D7EA203A4E1100A62845 /* FrameStage.cpp */,
 				B6D5D02620AAAF5C00AB99B1 /* DrawModelExecute.cpp */,
 				B6FC2F70200EC9A700E1D454 /* KeyEvent.cpp */,
+				9A5A684E2207F6D7001E89A8 /* LockCursor.cpp */,
 				B6F3F5D1205F62630059CBAB /* OpenGL.cpp */,
 				B6D5D02820AAB05300AB99B1 /* hooks.h */,
 			);
@@ -490,6 +493,7 @@
 				B6D5D02720AAAF5C00AB99B1 /* DrawModelExecute.cpp in Sources */,
 				B6818FDE2113EB26004376F2 /* global.cpp in Sources */,
 				B65931CB200DFBBD00EA59D1 /* PaintTraverse.cpp in Sources */,
+				9A5A684F2207F6D7001E89A8 /* LockCursor.cpp in Sources */,
 				B60C88DA20030F0300D0615B /* main.cpp in Sources */,
 				B6F3F5D2205F62630059CBAB /* OpenGL.cpp in Sources */,
 				B65931C0200B5F5D00EA59D1 /* util.cpp in Sources */,

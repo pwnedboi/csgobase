@@ -96,6 +96,18 @@ public:
         return getvfunc<oDrawPrintText>(this, 28)(this, text, textLen, 0);
     }
     
+    void UnlockCursor()
+    {
+        typedef void(* oUnlockCursor)(void*);
+        return getvfunc<oUnlockCursor>(this, 66)(this);
+    }
+    
+    void LockCursor()
+    {
+        typedef void(* oLockCursor)(void*);
+        return getvfunc<oLockCursor>(this, 67)(this);
+    }
+    
     void DrawSetTextureRGBA(int textureID, unsigned char const* colors, int w, int h)
     {
         typedef void (* oDrawSetTextureRGBA)(void*, int, unsigned char const*, int, int);
