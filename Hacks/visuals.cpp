@@ -65,5 +65,6 @@ void C_Visuals::draw_player_esp()
         render->draw_string(box.x + box.w / 2, box.y + box.h + 5, to_draw.c_str(), Fonts::small, IM_COL32_WHITE, true);
         
         this->draw_esp_box(box.x, box.y, box.w, box.h, col);
+        
     }
 }

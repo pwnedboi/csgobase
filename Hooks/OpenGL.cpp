@@ -8,7 +8,7 @@
 #include "util_sdl.h"
 
 #include "menu.h"
-#include "visuals.h"
+#include "../Hacks/visuals.h"
 
 #include "imgui.h"
 #include "imgui_impl_sdl_gl2.h"
@@ -60,11 +60,9 @@ void SwapWindow_hk(SDL_Window* window)
     /*
      *  Should probably use pEngine->IsInGame
      */
-    if(pEngine->IsInGame())
+    if(Global::localplayer)
     {
-        if(set.visuals.enabled) // Might need to remove
         visuals->draw_player_esp();
-        
     }
     
     render->finish();

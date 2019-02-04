@@ -5,11 +5,14 @@
  */
 
 #include "main.h"
-#include "visuals.h"
+#include "../Hacks/visuals.h"
 
 
 void PaintTraverse_hk(void* thisptr, VPANEL thisPanel, bool forceRepaint, bool allowForce) {
     IMPL_HOOK("PaintTraverse");
+    if (set.visuals.enabled && !strcmp("HudZoom", pPanel->GetName(thisPanel)))
+        return;
+    
     paintVMT->GetOriginalMethod<oPaintTraverse>(PaintTraverseIndex)(thisptr, thisPanel, forceRepaint, allowForce);
     static VPANEL lastPanel = 0;
     
@@ -20,6 +23,6 @@ void PaintTraverse_hk(void* thisptr, VPANEL thisPanel, bool forceRepaint, bool a
     }
     
     if(thisPanel == lastPanel) {
-        //visuals->draw_player_esp();
+        visuals->draw_player_esp();
     }    
 }
