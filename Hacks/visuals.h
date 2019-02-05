@@ -3,16 +3,17 @@
  */
 #pragma once
 
-class C_Visuals
+class CVisuals
 {
 private:
-    
-    void draw_esp_box(int x, int y, int w, int h, ImColor col);
-    
+    void drawHealthBar(int x, int y, int w, int h, int health);
+    void drawArmorBar();
 public:
-    
-    void draw_player_esp();
+
+    void drawPlayerESP();
+    void drawScopeLine();
+    void drawCrosshair();
     
 };
 
-extern C_Visuals* visuals;
+extern CVisuals* visuals;

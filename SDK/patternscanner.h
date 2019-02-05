@@ -1,48 +1,53 @@
 #pragma once
 
-struct memory_module_t
+struct MemoryModule
 {
     off_t       length;
     uint64_t    address;
     char*       path;
-    string      fullpath;
+    string fullpath;
     Byte*       buffer = nullptr;
 };
 
-class C_PatternScanner
+struct MatchPathSeparator
 {
-private:
-    
-    map<string, memory_module_t> loaded_modules;
-    
-    static C_PatternScanner* _instance;
-    
-private:
-    
-    void load_modules();
-    
+    bool operator()( char ch ) const
+    {
+        return ch == '\\' || ch == '/';
+    }
+};
+
+class PatternScanner
+{
 public:
     
-    static C_PatternScanner* get()
+    static PatternScanner* get()
     {
         if(!_instance)
         {
-            _instance = new C_PatternScanner();
+            _instance = new PatternScanner();
         }
         return _instance;
     }
     
-    C_PatternScanner();
+    PatternScanner();
     
-    string    base_name(string const& pathname);
-    string    get_module_path(string imageName);
+    string    Basename(string const& pathname);
+    string    GetModulePath(string imageName);
     
-    bool      compare(const unsigned char* pData, const unsigned char* bMask, const char* szMask);
+    bool      Compare(const unsigned char* pData, const unsigned char* bMask, const char* szMask);
     
-    uintptr_t find_pattern(uintptr_t dwAddress, off_t dwLen, unsigned char* bMask, const char* szMask, uintptr_t offset = 0x0);
-    uintptr_t get_pointer(string imageName, unsigned char* bMask, const char* szMask, uint32_t start);
-    uintptr_t get_procedure(string imageName, unsigned char* bMask, const char* szMask, uintptr_t offset = 0x0);
-    uintptr_t get_base_address(string imageName);
+    uintptr_t FindPattern(uintptr_t dwAddress, off_t dwLen, unsigned char* bMask, const char* szMask, uintptr_t offset = 0x0);
+    uintptr_t GetPointer(string imageName, unsigned char* bMask, const char* szMask, uint32_t start);
+    uintptr_t GetProcedure(string imageName, unsigned char* bMask, const char* szMask, uintptr_t offset = 0x0);
+    uintptr_t GetBaseAddress(string imageName);
+    
+private:
+    
+    void LoadModules();
+    map<string, MemoryModule> loaded_modules;
+    
+    static PatternScanner* _instance;
     
 };
 

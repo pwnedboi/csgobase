@@ -3,40 +3,30 @@
  */
 #pragma once
 
-float random_float(float min, float max);
-inline void sin_cos(float radians, float* sine, float* cosine);
 
-void angle_vectors(const QAngle& angles, Vector& forward);
-void angle_vectors(const QAngle& angles, Vector& forward, Vector& right, Vector& up);
-void vector_angles(const Vector &forward, QAngle &angles);
+void inline SinCos(float radians, float *sine, float *cosine);
+void AngleVectors(const QAngle &angles, Vector &forward);
+void NormalizeAngles(QAngle& angle);
+void NormalizeVector(Vector& vecIn);
+void ClampAngles(QAngle& angle);
+void CorrectMovement(QAngle vOldAngles, CUserCmd* pCmd, float fOldForward, float fOldSidemove);
+void FixMovement(QAngle& oang, CUserCmd* pCmd);
+void ClampMoves(float& flForward, float& flSide, float& flUp);
+void ClampYaw(float& val);
 
-void normalize_angle(float& angle);
-void normalize_angles(QAngle& angle);
-void normalize_vectors(Vector& vecIn);
+float GetFov(const QAngle &viewAngle, const QAngle &aimAngle);
+float DotProduct(Vector &v1, const float* v2);
 
-void clamp_yaw(float& val);
-void clamp_angles(QAngle& angle);
-void clamp_moves(float& forward, float& side, float& up);
+void VectorAngles(const Vector &forward, QAngle &angles);
+void VectorTransform (Vector &in1, const matrix3x4_t& in2, Vector &out);
 
-inline float dot_product(Vector &v1, const float* v2);
-void vector_transform(Vector &in1, const matrix3x4_t& in2, Vector &out);
-void transform_matrix(Vector input, matrix3x4_t matrix, Vector& output);
+QAngle CalcAngle(Vector src, Vector dst);
 
-void fix_movement(QAngle& ang, CUserCmd* cmd);
-void correct_movement(QAngle old_angles, CUserCmd* cmd, float old_forward, float old_sidemove);
-
-QAngle calculate_angle(Vector src, Vector dst);
-QAngle angle_between(const Vector& a, const Vector& b);
-
-float get_fov(const QAngle &viewAngle, const QAngle &aimAngle);
+float float_rand( float min, float max );
 float get_distance(Vector a, Vector b);
+float GetCurTime();
 
-float lerp(float a, float b, float f);
-Vector lerp(Vector start, Vector end, float percent);
-
-Vector get_hitbox_position(C_BasePlayer* player, int Hitbox);
-Vector calculate_hitbox(matrix3x4_t matrix[128], mstudiobbox_t* hitbox, Vector offset = Vector(0,0,0));
-mstudiohitboxset_t* get_hitbox_handle(C_BaseEntity* ent, matrix3x4_t matrix[128]);
+Vector GetHitboxPosition(C_BasePlayer* player, int Hitbox);
 
 
 template<class T, class U>
@@ -50,3 +40,5 @@ T clamp(T in, U low, U high)
     
     return in;
 }
+
+

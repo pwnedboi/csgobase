@@ -98,53 +98,71 @@ public:
         return *this;
     }
     
-    static Color White()
-    {
+    static Color White() {
         return Color(255, 255, 255, 255);
     }
     
-    static Color Red()
-    {
+    static Color Red() {
         return Color(255, 0, 0, 255);
     }
     
-    static Color Green()
-    {
+    static Color Green() {
         return Color(0, 255, 0, 255);
     }
     
-    static Color Blue()
-    {
+    static Color Blue() {
         return Color(0, 0, 255, 255);
     }
     
-    static Color Orange()
-    {
+    static Color AltBlue() {
+        return Color(66, 134, 244, 255);
+    }
+    
+    static Color Orange() {
         return Color(255, 155, 0, 255);
     }
     
-    static Color Yellow()
-    {
+    static Color Yellow() {
         return Color(255, 255, 0, 255);
     }
     
-    static Color Black()
-    {
+    static Color Black() {
         return Color(0, 0, 0, 255);
     }
     
-    static Color Magenta()
-    {
+    static Color Pink() {
         return Color(230, 40, 240, 255);
     }
     
-    static Color PastelPink()
-    {
-        return Color(255, 209, 220, 255);
+    static Color AltPink() {
+        return Color(255, 134, 244, 255);
     }
     
-    static Color GetFromHSB(float hue, float saturation, float brightness)
-    {
+    static Color Purple() {
+        return Color(164, 2, 252, 255);
+    }
+    
+    static Color Aqua() {
+        return Color(0, 255, 255, 255);
+    }
+    
+    static Color Rainbow() {
+        static uint32_t cnt = 0;
+        float freq = .050f; // Speed
+        
+        Color color = Color(
+                            std::sin(freq*cnt + 0) * 127 + 128,
+                            std::sin(freq*cnt + 2) * 127 + 128,
+                            std::sin(freq*cnt + 4) * 127 + 128,
+                            255);
+        
+        // Probably redundant
+        if (cnt++ >= (uint32_t)-1) cnt = 0;
+        
+        return color;
+    }
+    
+    static Color GetFromHSB(float hue, float saturation, float brightness) {
         float h = hue == 1.0f ? 0 : hue * 6.0f;
         float f = h - (int)h;
         float p = brightness * (1.0f - saturation);
@@ -152,38 +170,27 @@ public:
         float t = brightness * (1.0f - (saturation * (1.0f - f)));
         Byte r = 0, g = 0, b = 0;
         
-        if (h < 1)
-        {
+        if (h < 1) {
             r = (brightness * 255);
             g = (t * 255);
             b = (p * 255);
-        }
-        else if (h < 2)
-        {
+        } else if (h < 2) {
             r = (q * 255);
             g = (brightness * 255);
             b = (p * 255);
-        }
-        else if (h < 3)
-        {
+        } else if (h < 3) {
             r = (p * 255);
             g = (brightness * 255);
             b = (t * 255);
-        }
-        else if (h < 4)
-        {
+        } else if (h < 4) {
             r = (p * 255);
             g = (q * 255);
             b = (brightness * 255);
-        }
-        else if (h < 5)
-        {
+        } else if (h < 5) {
             r = (t * 255);
             g = (p * 255);
             b = (brightness * 255);
-        }
-        else
-        {
+        } else {
             r = (brightness * 255);
             g = (p * 255);
             b = (q * 255);

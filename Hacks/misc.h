@@ -3,7 +3,7 @@
  */
 #pragma once
 
-class C_Misc
+class CMisc
 {
 private:
     
@@ -15,4 +15,4 @@ public:
     
 };
 
-extern C_Misc* misc;
+extern CMisc* misc;

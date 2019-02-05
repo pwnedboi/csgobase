@@ -2,34 +2,10 @@
 
 #include "main.h"
 
-class C_Menu
+namespace Menu
 {
-private:
+    void drawMenu();
+    void setupStyle();
     
-    enum MenuTab
-    {
-        Aimbot,
-        Visuals,
-        Misc,
-        Colors,
-    };
-    
-    ImGuiIO     io;
-    C_Renderer* draw;
-    
-private:
-    
-    void add_checkbox(int x, int y, const char* label, bool* value);
-    
-public:
-    
-    C_Menu();
-    ~C_Menu();
-    
-    void init();
-    
-    void display();
-    
-};
-
-extern C_Menu* menu;
+    extern int alpha;
+}

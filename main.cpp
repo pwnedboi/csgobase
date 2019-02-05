@@ -6,7 +6,7 @@
  *  - Use osxinj to inject
  *  - IMPL_HOOK just prints "hook_name hooked" to console
  *  - The print() function prints to console, args : string, color = Pastel pink, prefix = "debug"
- *  - Install the fonts into /Library/Fonts/ and not ~/Library/Fonts/
+ *
  *
  *
  *
@@ -15,10 +15,18 @@
  */
 
 #include "main.h"
-#include "hooker.h"
+#include "Interfaces/Hooker.h"
 
 
-int __attribute__((constructor)) main()
+namespace Global
+{
+    CUserCmd*     cmd;
+    C_BasePlayer* localplayer;
+    C_BaseCombatWeapon* localWeapon;
+}
+
+
+int __attribute__((constructor)) Init()
 {
     init_interfaces();
     
@@ -32,6 +40,3 @@ int __attribute__((constructor)) main()
     
     return EXIT_SUCCESS;
 }
-
-
-

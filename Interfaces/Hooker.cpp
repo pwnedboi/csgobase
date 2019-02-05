@@ -1,4 +1,4 @@
-/*      hooker.cpp
+/*      Hooker.cpp
  *
  *  - Initialises interfaces
  *  - Initialises hooks
@@ -7,12 +7,12 @@
  */
 
 #include "main.h"
-#include "hooker.h"
+#include "Hooker.h"
 
-/*
- *  init_interfaces
- *  Finds all interfaces
- */
+bool* bSendPacket = nullptr;
+
+CSettings set;
+
 void init_interfaces()
 {
     pSurface        = GetInterface<ISurface>("./bin/osx64/vguimatsurface.dylib", "VGUI_Surface");
@@ -32,10 +32,7 @@ void init_interfaces()
     pPhysics        = GetInterface<IPhysicsSurfaceProps>("./bin/osx64/vphysics.dylib", "VPhysicsSurfaceProps");
 }
 
-/*
- *
- *
- */
+
 void protect_addr(void* addr, int prot)
 {
     long pagesize = sysconf(_SC_PAGESIZE);
@@ -43,24 +40,22 @@ void protect_addr(void* addr, int prot)
     mprotect(address, sizeof(address), prot);
 }
 
-/*
- *  init_hooks
- *  Finds pointers then initiliases VMT's and game functions
- */
+
 void init_hooks()
 {
-    C_PatternScanner* scanner = C_PatternScanner::get();
-    uintptr_t clientModePtr = scanner->get_pointer("client_panorama.dylib",(Byte*)CLIENTMODE_SIG, CLIENTMODE_MASK, 0xA) + 0x4;
-    uintptr_t globalVarsPtr = scanner->get_pointer("client_panorama.dylib",(Byte*)GLOBALS_SIG, GLOBALS_MASK, 0x3) + 0x4;
-    uintptr_t clanTagPtr    = scanner->get_pointer("engine.dylib",(Byte*)CLANTAG_SIG, CLANTAG_MASK, 0xB) + 0x4;
-    uintptr_t sendPacketPtr = scanner->get_procedure("engine.dylib",(Byte*)SENDPACKET_SIG, SENDPACKET_MASK, 0x1) + 0x2;
+    PatternScanner* scanner = PatternScanner::get();
+    uintptr_t clientModePtr = scanner->GetPointer("client_panorama.dylib",(Byte*)CLIENTMODE_SIG, CLIENTMODE_MASK, 0xA) + 0x4;
+    uintptr_t globalVarsPtr = scanner->GetPointer("client_panorama.dylib",(Byte*)GLOBALS_SIG, GLOBALS_MASK, 0x3) + 0x4;
+    uintptr_t clanTagPtr    = scanner->GetPointer("engine.dylib",(Byte*)CLANTAG_SIG, CLANTAG_MASK, 0xB) + 0x4;
+    uintptr_t sendPacketPtr = scanner->GetProcedure("engine.dylib",(Byte*)SENDPACKET_SIG, SENDPACKET_MASK, 0x1) + 0x2;
+
     
-    
+
     bSendPacket = reinterpret_cast<bool*>(sendPacketPtr);
     protect_addr(bSendPacket, PROT_READ | PROT_WRITE | PROT_EXEC);
+
     
-    
-    void* handle        = dlopen("./csgo/bin/osx64/client_panorama.dylib", RTLD_NOLOAD | RTLD_NOW);
+    void* handle        = dlopen("./csgo/bin/osx64/client.dylib", RTLD_NOLOAD | RTLD_NOW);
     RandomSeed          = reinterpret_cast<RandomSeedFn>         (dlsym(handle, "RandomSeed"));
     RandomInt           = reinterpret_cast<RandomIntFn>          (dlsym(handle, "RandomInt"));
     RandomFloat         = reinterpret_cast<RandomFloatFn>        (dlsym(handle, "RandomFloat"));
@@ -68,11 +63,9 @@ void init_hooks()
     RandomGaussianFloat = reinterpret_cast<RandomGaussianFloatFn>(dlsym(handle, "RandomGaussianFloat"));
     dlclose(handle);
     
-    
     SetTag          = reinterpret_cast<SendClanTagFn>(clanTagPtr);
     pClientMode     = reinterpret_cast<IClientMode*>(clientModePtr);
     pGlobals        = *reinterpret_cast<CGlobalVarsBase**>(globalVarsPtr);
-    
     
     paintVMT        = new VMT(pPanel);
     createmoveVMT   = new VMT(pClientMode);
@@ -83,10 +76,7 @@ void init_hooks()
     materialVMT     = new VMT(pMatSystem);
 }
 
-/*
- *  hook_functions
- *  Applies the hooks
- */
+
 void hook_functions()
 {
     createmoveVMT->HookVM((void*)CreateMove_hk, CreateMoveIndex);
@@ -101,16 +91,12 @@ void hook_functions()
     
     surfaceVMT->HookVM((void*)LockCursor_hk, LockCursorIndex);
     surfaceVMT->ApplyVMT();
-    
+
     OpenGL_hk();
     
-    print("Functions hooked", Color::Orange());
+    pCvar->ConsoleDPrintf("\nFunctions Hooked\n", Color::Orange());
 }
 
-/*
- *  init_settings
- *  Initialises variables
- */
 void init_settings()
 {
     // Initialise variables here

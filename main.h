@@ -1,35 +1,40 @@
-/*
- *  main.h
- */
+// =============== main.h =============== \\
+//
+//  - All the main includes are included here
+//  -
+//  -
+//
 #pragma once
 
 
 #include <stdio.h>
 #include <string>
-#include <deque>
-#include <vector>
-#include <map>
-#include <unordered_map>
 #include <fstream>
 #include <sstream>
-#include <codecvt>  // codecvt_utf8 // string to wchar
+#include <vector>
+#include <deque>
+#include <unordered_map>
+#include <map>
 #include <dlfcn.h>
-#include <zconf.h>  // Byte
+#include <libproc.h>
+#include <codecvt>
+#include <iomanip>
+#include <zconf.h>
 #include <sys/stat.h>
-#include <sys/mman.h> // used in protect_addr
+#include <sys/mman.h>
 #include <mach-o/dyld_images.h>
 
 using namespace std;
 
-#include "SDK.h"
+#include "SDK/SDK.h"
 
-#include "settings.h"
+#include "Interfaces/Interfaces.h"
 
-#include "global.h"
+#include "Variables/settings.h"
 
-#include "renderer.h"
+#include "Render/renderer.h"
 
-#include "util.h"
-#include "util_math.h"
+#include "Utilities//util.h"
+#include "Utilities//util_math.h"
 
-#include "hooks.h"
+#include "Hooks/hooks.h"

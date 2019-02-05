@@ -355,11 +355,7 @@ public:
     {
         return *(bool*)((uintptr_t)this + 0x125);
     }
-  
-    int get_hitbox_set()
-    {
-        return (int)((uintptr_t)this + offsets.DT_BasePlayer.m_nHitboxSet);
-    } 
+    
 };
 
     

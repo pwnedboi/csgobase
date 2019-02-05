@@ -7,6 +7,7 @@ class IClientMode {};
 struct CGlowObjectManager;
 
 // Misc functions
+typedef bool (*ServerRankRevealAllFn) (float*);
 typedef void (*SendClanTagFn) (const char*, const char*);
 
 // Random functions
@@ -97,16 +98,15 @@ enum ItemDefinitionIndex: int
     WEAPON_G3SG1        = 11,
     WEAPON_GALILAR      = 13,
     WEAPON_M249         = 14,
-    WEAPON_M4A1         = 16,
-    WEAPON_MAC10        = 17,
-    WEAPON_P90          = 19,
-    WEAPON_MP5          = 23,
-    WEAPON_UMP45        = 24,
-    WEAPON_XM1014       = 25,
-    WEAPON_BIZON        = 26,
-    WEAPON_MAG7         = 27,
-    WEAPON_NEGEV        = 28,
-    WEAPON_SAWEDOFF     = 29,
+    WEAPON_M4A1 = 16,
+    WEAPON_MAC10 = 17,
+    WEAPON_P90 = 19,
+    WEAPON_UMP45 = 24,
+    WEAPON_XM1014 = 25,
+    WEAPON_BIZON = 26,
+    WEAPON_MAG7 = 27,
+    WEAPON_NEGEV = 28,
+    WEAPON_SAWEDOFF = 29,
     WEAPON_TEC9 = 30,
     WEAPON_TASER = 31,
     WEAPON_HKP2000 = 32,
@@ -428,6 +428,7 @@ enum Hitbox: int
     
     HITBOX_HEAD,
     HITBOX_NECK,
+    HITBOX_LOWER_NECK,
     HITBOX_PELVIS,
     HITBOX_BODY,
     HITBOX_THORAX,
@@ -446,6 +447,14 @@ enum Hitbox: int
     HITBOX_LEFT_UPPER_ARM,
     HITBOX_LEFT_FOREARM,
     HITBOX_MAX
+    
+    //        HITBOX_HEAD = 0,
+    //        HITBOX_NECK,
+    //        HITBOX_PELVIS,
+    //        HITBOX_SPINE,
+    //        HITBOX_LEGS,
+    //        HITBOX_ARMS
+    
 };
 
 enum HitGroups: int

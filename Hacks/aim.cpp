@@ -7,4 +7,4 @@
 #include "main.h"
 #include "aim.h"
 
-C_Aim* aim = new C_Aim();
+CAim* aim = new CAim();

@@ -5,13 +5,13 @@
 	<key>BuildLocationStyle</key>
 	<string>CustomLocation</string>
 	<key>CustomBuildIntermediatesPath</key>
-	<string>/Users/jameshenson/Desktop/Build/Intermediates.noindex</string>
+	<string>/Users/jameshenson/boatware/bin</string>
 	<key>CustomBuildLocationType</key>
 	<string>Absolute</string>
 	<key>CustomBuildProductsPath</key>
 	<string>/Users/jameshenson/boatware/bin</string>
 	<key>CustomIndexStorePath</key>
-	<string>/Users/jameshenson/Desktop/Index/DataStore</string>
+	<string>/Users/jameshenson/boatware/bin</string>
 	<key>DerivedDataLocationStyle</key>
 	<string>Default</string>
 	<key>EnabledFullIndexStoreVisibility</key>

@@ -1,19 +1,8 @@
-/*
- *  global.h
- */
+// =============== Interfaces.h =============== \\
+//
+//  - For defining interfaces
+//
 #pragma once
-
-namespace Global
-{
-    extern CUserCmd*     cmd;
-    extern C_BasePlayer* localplayer;
-    extern C_BaseCombatWeapon* localWeapon;
-}
-
-extern C_Settings set;
-
-extern bool* bSendPacket;
-
 
 extern ICvar*               pCvar;
 extern IPanel*              pPanel;
@@ -34,14 +23,17 @@ extern IPrediction*         pPrediction;
 extern IGameMovement*       pGameMovement;
 extern IMoveHelper*         pMoveHelper;
 extern IPhysicsSurfaceProps*pPhysics;
-extern CMoveData*           pMoveData;
 
 
-extern SendClanTagFn         SetTag;
-extern RandomSeedFn          RandomSeed;
-extern RandomFloatFn         RandomFloat;
-extern RandomFloatExpFn      RandomFloatExp;
-extern RandomIntFn           RandomInt;
+
+extern CMoveData*           MoveData;
+extern SendClanTagFn        SetTag;
+
+
+extern RandomSeedFn         RandomSeed;
+extern RandomFloatFn        RandomFloat;
+extern RandomFloatExpFn     RandomFloatExp;
+extern RandomIntFn          RandomInt;
 extern RandomGaussianFloatFn RandomGaussianFloat;
 
 

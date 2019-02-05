@@ -7,26 +7,30 @@
 #include "main.h"
 #include "menu.h"
 
-enum {
+enum
+{
     PRESSED  = 0,
     RELEASED = 1,
 };
 
-int KeyEvent_hk(void* thisptr, int event_code, int keycode, const char* cur_binding) {
+int KeyEvent_hk(void* thisptr, int eventCode, int keycode, const char* curBinding) {
     IMPL_HOOK("KeyEvent");
-    if(event_code == PRESSED) {
-        if(keycode == KEY_INSERT || keycode == KEY_LALT || keycode == KEY_RALT) {
+    
+    if(eventCode == PRESSED) {
+        if(keycode == KEY_LALT) {
             set.menu = !set.menu;
-            /*
-             *  Enable / disable the mouse
-             */
             pInputSystem->EnableInput(!set.menu);
         }
     }
     
-    if(event_code == RELEASED) {
+    if(eventCode == RELEASED) {
         
     }
     
-    return clientVMT->GetOriginalMethod<oKeyEvent>(KeyEventIndex)(thisptr, event_code, keycode, cur_binding);
+    return clientVMT->GetOriginalMethod<oKeyEvent>(KeyEventIndex)(thisptr, eventCode, keycode, curBinding);
 }
+
+
+
+
+

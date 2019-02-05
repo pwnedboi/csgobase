@@ -3,7 +3,7 @@
  */
 #pragma once
 
-class C_Aim
+class CAim
 {
 private:
     
@@ -15,4 +15,4 @@ public:
     
 };
 
-extern C_Aim* aim;
+extern CAim* aim;
